@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">FeedMe</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_sing_up">SingUp</string>
+    <string name="title_activity_user_home">UserHome</string>
+    <string name="title_activity_restaurant_home">RestaurantHome</string>
+    <string name="title_activity_view_orders">ViewOrders</string>
+    <string name="title_activity_edit_menu">EditMenu</string>
+    <string name="title_activity_user_selection">UserSelection</string>
+    <string name="title_activity_user_view_menu">UserViewMenu</string>
+    <string name="title_activity_user_review_order">UserReviewOrder</string>
+    <string name="title_activity_user_payment">UserPayment</string>
+    <string name="title_activity_order_detail">OrderDetail</string>
+</resources>
