@@ -12,4 +12,21 @@
     tools:context="smartfoodcluster.feedme.user.UserViewMenu"
     tools:showIn="@layout/activity_user_view_menu">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/restaurantNameTextBox"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menuListGui"
+        android:layout_below="@+id/restaurantNameTextBox"
+        android:layout_centerHorizontal="true"
+        android:choiceMode="multipleChoice" />
 </RelativeLayout>
