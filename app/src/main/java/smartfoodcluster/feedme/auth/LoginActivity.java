@@ -24,6 +24,7 @@ import com.google.android.gms.common.SignInButton;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
+import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
 import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
@@ -73,10 +74,10 @@ public class LoginActivity extends AppCompatActivity {
                 boolean authSuccess = true;
                 if (Constants.authEnabled) authSuccess = syncGoogleAccount();
                 if (authSuccess) {
-                    Intent i = new Intent(getApplicationContext(), UserHome.class);
+                    Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
                     i.putExtra(Constants.showSuccess, true);
                     startActivity(i);
-                    setContentView(R.layout.activity_user_home);
+                    setContentView(R.layout.activity_restaurateur_home);
                 } else {
                     try {
                         Thread.sleep(2000);

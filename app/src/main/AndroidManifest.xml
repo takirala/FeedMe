@@ -20,9 +20,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".auth.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -110,6 +111,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.restaurant.EditMenu" />
+        </activity>
+        <activity
+            android:name=".restaurateur.RestaurateurHome"
+            android:label="@string/title_activity_restaurateur_home"
+            android:parentActivityName=".auth.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.auth.LoginActivity" />
         </activity>
     </application>
 </manifest>
