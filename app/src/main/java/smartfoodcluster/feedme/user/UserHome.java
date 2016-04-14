@@ -27,9 +27,12 @@ public class UserHome extends AppCompatActivity {
         if (intent.getExtras().get(Constants.showSuccess) != null) {
             Toast.makeText(UserHome.this, "Authenticated!!", Toast.LENGTH_SHORT).show();
             intent.removeExtra(Constants.showSuccess);
+
         }
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         String[] restaurantList = {"BoneFish", "McDonalds", "Chipotle", "Publix", "I'm Tasty! Eat Here!"};
         ListAdapter restaurantAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, restaurantList);

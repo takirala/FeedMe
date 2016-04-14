@@ -8,26 +8,21 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 
 import smartfoodcluster.feedme.R;
+import smartfoodcluster.feedme.UserSelection;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
-import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
@@ -70,12 +65,15 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     userRole = Constants.UserRole.USER;
                 }
-                Log.e("Auth / uSer role ", ">>" + userRole);
+                SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
+                settings.edit().putBoolean(Constants.userRole, userRole).commit();
+                settings.edit().putBoolean(Constants.userAuthenticated, true).commit();
+
+                Log.e("Auth / user role ", ">>" + userRole);
                 boolean authSuccess = true;
                 if (Constants.authEnabled) authSuccess = syncGoogleAccount();
                 if (authSuccess) {
                     navigateToNextPage(userRole);
-
                 } else {
                     try {
                         Thread.sleep(2000);
@@ -89,10 +87,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToNextPage(boolean userRole) {
         if (userRole == Constants.UserRole.USER) {
-            Intent i = new Intent(getApplicationContext(), UserHome.class);
+            Intent i = new Intent(getApplicationContext(), UserSelection.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_home);
+            setContentView(R.layout.activity_user_selection);
         } else {
             Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
             i.putExtra(Constants.showSuccess, true);

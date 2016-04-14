@@ -9,12 +9,12 @@ import android.view.View;
 
 import smartfoodcluster.feedme.R;
 
-public class UserSelection extends AppCompatActivity {
+public class UserRestaurantFinder extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_selection);
+        setContentView(R.layout.activity_user_restaurant_finder);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -28,5 +28,4 @@ public class UserSelection extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
 }
