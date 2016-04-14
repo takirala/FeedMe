@@ -15,17 +15,19 @@
         completions."
     </string>
     <string name="title_activity_login">FeedMe</string>
-    <string name="title_activity_sing_up">SingUp</string>
-    <string name="title_activity_user_home">UserHome</string>
-    <string name="title_activity_restaurant_home">RestaurantHome</string>
-    <string name="title_activity_view_orders">ViewOrders</string>
-    <string name="title_activity_edit_menu">EditMenu</string>
+
+    <string name="title_activity_sing_up">Sign Up</string>
+    <string name="title_activity_user_home">User Home</string>
+    <string name="title_activity_restaurant_home">Restaurant Home</string>
+    <string name="title_activity_view_orders">View Orders</string>
+    <string name="title_activity_edit_menu">Edit Menu</string>
     <string name="title_activity_user_selection">Restaurants Nearby</string>
-    <string name="title_activity_user_view_menu">UserViewMenu</string>
-    <string name="title_activity_user_review_order">UserReviewOrder</string>
-    <string name="title_activity_user_payment">UserPayment</string>
-    <string name="title_activity_order_detail">OrderDetail</string>
-    <string name="title_activity_restaurateur_home">RestaurateurHome</string>
+    <string name="title_activity_user_view_menu">User View Menu</string>
+    <string name="title_activity_user_review_order">User Review Order</string>
+    <string name="title_activity_user_payment">User Payment</string>
+    <string name="title_activity_order_detail">Order Detail</string>
+    <string name="title_activity_restaurateur_home">Restaurateur Home</string>
+    <string name="title_activity_user_map_view">Map</string>
     <string name="section_format">%1$d</string>
     <string name="title_activity_user_restaurant_finder">UserRestaurantFinder</string>
     <string name="large_text">

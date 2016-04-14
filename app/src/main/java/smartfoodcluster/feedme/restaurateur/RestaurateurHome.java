@@ -118,10 +118,7 @@ public class RestaurateurHome extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_restaurateur_home, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 
-            Bundle b = getArguments();
-            for (Object o : b.keySet()) {
-                Log.e("Gubba ", o.toString());
-            }
+            Log.e("print",""+getArguments().getInt(ARG_SECTION_NUMBER));
 
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;

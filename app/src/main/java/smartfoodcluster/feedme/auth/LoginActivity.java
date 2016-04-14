@@ -19,7 +19,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 
 import smartfoodcluster.feedme.R;
-import smartfoodcluster.feedme.UserSelection;
+import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;

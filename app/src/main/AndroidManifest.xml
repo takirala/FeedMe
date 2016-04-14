@@ -103,6 +103,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.restaurant.EditMenu" />
         </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".user.UserMapView"
+            android:label="@string/title_activity_user_map_view" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.user.UserHome" />
+        </activity>
+
         <activity
             android:name=".restaurateur.RestaurateurHome"
             android:label="@string/title_activity_restaurateur_home"
@@ -122,7 +142,7 @@
                 android:value="smartfoodcluster.feedme.auth.LoginActivity" />
         </activity>
         <activity
-            android:name=".UserSelection"
+            android:name=".user.UserSelection"
             android:label="@string/title_activity_user_selection"
             android:parentActivityName=".auth.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
