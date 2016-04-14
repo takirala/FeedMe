@@ -26,5 +26,6 @@
     <string name="title_activity_user_payment">User Payment</string>
     <string name="title_activity_order_detail">Order Detail</string>
     <string name="title_activity_restaurateur_home">Restaurateur Home</string>
+    <string name="title_activity_user_map_view">Map</string>
     <string name="section_format">%1$d</string>
 </resources>
