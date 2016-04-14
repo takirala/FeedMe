@@ -103,39 +103,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.LoginActivity" >
+    tools:context=".auth.LoginActivity"
+    android:textAlignment="gravity">
 
-    <TextView
-        android:id="@+id/textView1"
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Please wait..."
-        android:textSize="25sp" />
+        />
+
+    <TextView
+        android:id="@+id/wait_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/sign_in_button"
+        android:text="Verifying account. Hold your hearts!!"
+        android:visibility="invisible"
+        android:textSize="25sp"/>
 
     <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/wait_message"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:text="Verifying account!!"/>
 
-    <TextView
-        android:id="@+id/textView2"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp" />
+        android:id="@+id/welcomeText"
+        android:layout_marginBottom="37dp"
+        android:text="Feed Me"
+        android:textSize="78dp"
+        android:layout_above="@+id/sign_in_button"
+        android:layout_centerHorizontal="true"
+        android:textIsSelectable="false"
+        android:editable="false"
+        android:textColor="#FF1744" />
 
-    <Button
-        android:id="@+id/email_sign_in_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/action_sign_in"
-        android:textStyle="bold" />
+    <!--<Button-->
+        <!--android:id="@+id/email_sign_in_button"-->
+        <!--style="?android:textAppearanceSmall"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="@string/action_sign_in"-->
+        <!--android:textStyle="bold" />-->
+
 
 </RelativeLayout>
