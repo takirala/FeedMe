@@ -70,8 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (syncGoogleAccount()) {
-
+                boolean authSuccess = true;
+                if (Constants.authEnabled) authSuccess = syncGoogleAccount();
+                if (authSuccess) {
                     Intent i = new Intent(getApplicationContext(), UserHome.class);
                     i.putExtra(Constants.showSuccess, true);
                     startActivity(i);
