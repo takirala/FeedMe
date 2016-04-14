@@ -117,10 +117,12 @@ public class RestaurateurHome extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_restaurateur_home, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-           Bundle b = getArguments();
-            for(Object o : b.keySet()) {
+
+            Bundle b = getArguments();
+            for (Object o : b.keySet()) {
                 Log.e("Gubba ", o.toString());
             }
+
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
@@ -151,7 +153,7 @@ public class RestaurateurHome extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Log.e("getPageTitle",""+position);
+            Log.e("getPageTitle", "" + position);
             switch (position) {
                 case 0:
                     return "New ";

@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (Constants.authEnabled) authSuccess = syncGoogleAccount();
                 if (authSuccess) {
                     navigateToNextPage(userRole);
+
                 } else {
                     try {
                         Thread.sleep(2000);
