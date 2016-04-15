@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 
+import appcloud.controller.EndpointsAsyncTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
@@ -68,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // end points call
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Srinivas"));
+
         SignInButton mEmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -75,10 +80,10 @@ public class LoginActivity extends AppCompatActivity {
                 boolean authSuccess = true;
                 if (Constants.authEnabled) authSuccess = syncGoogleAccount();
                 if (authSuccess) {
-                    Intent i = new Intent(getApplicationContext(), UserMapView.class);
+                    Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
                     i.putExtra(Constants.showSuccess, true);
                     startActivity(i);
-                    setContentView(R.layout.activity_user_map_view);
+                    setContentView(R.layout.activity_restaurateur_home);
                 } else {
                     try {
                         Thread.sleep(2000);

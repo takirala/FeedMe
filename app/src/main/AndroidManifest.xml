@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="smartfoodcluster.feedme">
+    package="smartfoodcluster.feedme" >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -17,10 +17,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".auth.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,7 @@
             android:name=".auth.SignUp"
             android:label="@string/title_activity_sing_up"
             android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.auth.LoginActivity" />
@@ -40,7 +40,7 @@
             android:name=".user.UserHome"
             android:label="@string/title_activity_user_home"
             android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.auth.LoginActivity" />
@@ -49,7 +49,7 @@
             android:name=".restaurant.RestaurantHome"
             android:label="@string/title_activity_restaurant_home"
             android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.auth.LoginActivity" />
@@ -58,7 +58,7 @@
             android:name=".restaurant.ViewOrders"
             android:label="@string/title_activity_view_orders"
             android:parentActivityName=".restaurant.RestaurantHome"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.restaurant.RestaurantHome" />
@@ -67,7 +67,7 @@
             android:name=".restaurant.EditMenu"
             android:label="@string/title_activity_edit_menu"
             android:parentActivityName=".restaurant.RestaurantHome"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.restaurant.RestaurantHome" />
@@ -76,7 +76,7 @@
             android:name=".user.UserSelection"
             android:label="@string/title_activity_user_selection"
             android:parentActivityName=".user.UserHome"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.user.UserHome" />
@@ -85,7 +85,7 @@
             android:name=".user.UserViewMenu"
             android:label="@string/title_activity_user_view_menu"
             android:parentActivityName=".user.UserSelection"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.user.UserSelection" />
@@ -98,7 +98,7 @@
             android:name=".user.UserPayment"
             android:label="@string/title_activity_user_payment"
             android:parentActivityName=".user.UserReviewOrder"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.user.UserReviewOrder" />
@@ -107,7 +107,7 @@
             android:name=".user.OrderDetail"
             android:label="@string/title_activity_order_detail"
             android:parentActivityName=".restaurant.EditMenu"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.restaurant.EditMenu" />
@@ -131,15 +131,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.user.UserHome" />
         </activity>
-
         <activity
             android:name=".restaurateur.RestaurateurHome"
             android:label="@string/title_activity_restaurateur_home"
             android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.auth.LoginActivity" />
         </activity>
     </application>
+
 </manifest>
