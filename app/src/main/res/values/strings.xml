@@ -29,6 +29,7 @@
     <string name="title_activity_restaurateur_home">Restaurateur Home</string>
     <string name="title_activity_user_map_view">Map</string>
     <string name="section_format">%1$d</string>
+
     <string name="title_activity_user_restaurant_finder">UserRestaurantFinder</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -122,4 +123,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_section_1">New</string>
+    <string name="title_section_2">Processed</string>
+    <string name="title_section_3">Completed</string>
 </resources>

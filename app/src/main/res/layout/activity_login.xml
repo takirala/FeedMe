@@ -22,8 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Verifying account. Hold your hearts!!"
-        android:textSize="25sp"
-        android:visibility="invisible" />
+        android:textSize="25sp" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -32,8 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/wait_message"
         android:layout_centerHorizontal="true"
-        android:text="Verifying account!!"
-        android:visibility="invisible" />
+        android:text="Verifying account!!" />
 
     <EditText
         android:id="@+id/welcomeText"

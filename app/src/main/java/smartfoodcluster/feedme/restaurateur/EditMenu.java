@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme.user;
+package smartfoodcluster.feedme.restaurateur;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,12 +9,12 @@ import android.view.View;
 
 import smartfoodcluster.feedme.R;
 
-public class UserReviewOrder extends AppCompatActivity {
+public class EditMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_review_order);
+        setContentView(R.layout.activity_edit_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -26,6 +26,7 @@ public class UserReviewOrder extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
@@ -18,12 +19,12 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 
+import appcloud.controller.EndpointsAsyncTask;
 import smartfoodcluster.feedme.R;
-import smartfoodcluster.feedme.user.UserMapView;
-import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
+import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
@@ -41,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
         final boolean userAuthenticated = settings.getBoolean(Constants.userAuthenticated, false);
         if (userAuthenticated) {
@@ -50,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
             navigateToNextPage(userRole);
             return;
         }
+        // end points call
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Srinivas"));
 
         SignInButton mEmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -88,10 +89,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToNextPage(boolean userRole) {
         if (userRole == Constants.UserRole.USER) {
-            Intent i = new Intent(getApplicationContext(), UserMapView.class);
+            Intent i = new Intent(getApplicationContext(), UserSelection.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_map_view);
+            setContentView(R.layout.activity_user_selection);
         } else {
             Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
             i.putExtra(Constants.showSuccess, true);
