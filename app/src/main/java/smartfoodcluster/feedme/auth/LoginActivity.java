@@ -18,8 +18,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
-import appcloud.controller.EndpointsAsyncTask;
+//import appcloud.controller.EndpointsAsyncTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         // end points call
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Srinivas"));
+        //new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Srinivas"));
 
         SignInButton mEmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 settings.edit().putBoolean(Constants.userRole, userRole).commit();
                 settings.edit().putBoolean(Constants.userAuthenticated, true).commit();
 
+
                 Log.e("Auth / user role ", ">>" + userRole);
                 boolean authSuccess = true;
                 if (Constants.authEnabled) authSuccess = syncGoogleAccount();
@@ -88,11 +90,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToNextPage(boolean userRole) {
+        // Register user in cloud database.
+        // Inside your Activity class onCreate method
+        SharedPreferences settings = getSharedPreferences(
+                getString(R.string.app_name), 0);
+        GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(this,
+                "server:client_id:1-web-app.apps.googleusercontent.com");
+
         if (userRole == Constants.UserRole.USER) {
+
+
             Intent i = new Intent(getApplicationContext(), UserSelection.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
             setContentView(R.layout.activity_user_selection);
+
+
         } else {
             Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
             i.putExtra(Constants.showSuccess, true);

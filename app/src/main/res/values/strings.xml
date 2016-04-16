@@ -38,4 +38,19 @@
     <string name="title_section_1">New</string>
     <string name="title_section_2">Processed</string>
     <string name="title_section_3">Completed</string>
+
+    <!-- Custom string constants-->
+    <string name="no_location_detected">Please enable the location OR \n Try again later.</string>
+    <string name="title_activity_location">LocationActivity</string>
+
+    <!-- Testing Tarun-->
+
+    <string name="latitude_label">Latitude</string>
+    <string name="longitude_label">Longitude</string>
+    <string name="last_update_time_label">Last location update time</string>
+
+    <string name="start_updates">Start updates</string>
+    <string name="stop_updates">Stop updates</string>
+    <string name="location_updated_message">Location updated</string>
+
 </resources>

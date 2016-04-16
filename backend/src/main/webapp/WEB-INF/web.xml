@@ -5,7 +5,7 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>smartfoodcluster.feedme.backend.MyEndpoint</param-value>
+            <param-value>smartfoodcluster.feedme.backend.UserEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

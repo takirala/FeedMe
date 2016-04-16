@@ -1,15 +1,22 @@
 package smartfoodcluster.feedme.user;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,29 +29,60 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.ActivityRecognition;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.RestaurantGui;
+import smartfoodcluster.feedme.util.Constants;
 
 public class UserSelection extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    List<RestaurantGui> restaurants=new ArrayList<RestaurantGui>();
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+
+    protected static final String TAG = "UserSelection";
+
+    /**
+     * Represents a geographical location.
+     */
+    protected Location mLastLocation;
+
+    protected Double mLatitudeText;
+    protected Double mLongitudeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_user_selection);
+
+        LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String best = mgr.getBestProvider(criteria, true);
+        Location location;
+
+        location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Log.e(TAG, location.getLatitude() + " " + location.getLongitude());
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "Enable location permission!!!!");
+            return;
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        List restaurantList  = populateList();
+        List restaurantLista = populateList();
 
         //ListAdapter restaurantAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,restaurantList);
         ListAdapter restaurantAdapter = new RestaurantAdapter();
-        ListView restaurantListGui = (ListView)findViewById(R.id.restaurantList);
+        ListView restaurantListGui = (ListView) findViewById(R.id.restaurantList);
         restaurantListGui.setAdapter(restaurantAdapter);
 
         restaurantListGui.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,15 +109,6 @@ public class UserSelection extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
     @Override
@@ -136,39 +165,94 @@ public class UserSelection extends AppCompatActivity
     }
 
 
-    private List<RestaurantGui> populateList(){
-
-
+    private List<RestaurantGui> populateList() {
         restaurants.add(new RestaurantGui("BoneFish", R.drawable.bonefish));
         restaurants.add(new RestaurantGui("BigBurger", R.drawable.bigburger));
         restaurants.add(new RestaurantGui("Chipotle", R.drawable.chipotle));
-        restaurants.add(new RestaurantGui("McDonalds",R.drawable.mcdonalds));
+        restaurants.add(new RestaurantGui("McDonalds", R.drawable.mcdonalds));
         restaurants.add(new RestaurantGui("Publix", R.drawable.publix));
         restaurants.add(new RestaurantGui("Subway", R.drawable.subway));
         return restaurants;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    /**
+     * Runs when a GoogleApiClient object successfully connects.
+     */
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.e(TAG, "Yayy location connected");
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            Toast.makeText(UserSelection.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
+            return;
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //  public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
+
+        if (mLastLocation != null) {
+            mLatitudeText = mLastLocation.getLatitude();
+            mLongitudeText = mLastLocation.getLongitude();
+            Toast.makeText(this, "Hurray !! " + mLatitudeText + " , " + mLongitudeText, Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // The connection to Google Play services was lost for some reason. We call connect() to
+        // attempt to re-establish the connection.
+        Log.i(TAG, "Connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
+
 
     private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
 
-        public RestaurantAdapter(){
-            super(UserSelection.this,R.layout.restaurant_list_view,restaurants);
+        public RestaurantAdapter() {
+            super(UserSelection.this, R.layout.restaurant_list_view, restaurants);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
             View thisView = convertView;
-            if(thisView==null){
-                thisView=getLayoutInflater().inflate(R.layout.restaurant_list_view,parent,false);
+            if (thisView == null) {
+                thisView = getLayoutInflater().inflate(R.layout.restaurant_list_view, parent, false);
             }
 
             RestaurantGui selectedRestaurant = restaurants.get(position);
 
-            ImageView restaurantImageView = (ImageView)thisView.findViewById(R.id.restaurantIcon);
+            ImageView restaurantImageView = (ImageView) thisView.findViewById(R.id.restaurantIcon);
             restaurantImageView.setImageResource(selectedRestaurant.getRestaurantIconId());
 
-            TextView restaurantNameTextView=(TextView)thisView.findViewById(R.id.restaurantName);
+            TextView restaurantNameTextView = (TextView) thisView.findViewById(R.id.restaurantName);
             restaurantNameTextView.setText(selectedRestaurant.getRestaurantName());
 
             return thisView;
