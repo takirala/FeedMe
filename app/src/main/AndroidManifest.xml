@@ -48,11 +48,11 @@
         <activity
             android:name=".user.UserSelection"
             android:label="@string/title_activity_user_selection"
-            android:parentActivityName=".user.UserHome"
+            android:parentActivityName=".auth.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserHome" />
+                android:value="smartfoodcluster.feedme.user.UserSelection" />
         </activity>
 
         <activity

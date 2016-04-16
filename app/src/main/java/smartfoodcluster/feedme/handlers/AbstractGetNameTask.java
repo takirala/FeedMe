@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import smartfoodcluster.feedme.auth.LoginActivity;
+import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
@@ -62,7 +63,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void> {
             InputStream is = con.getInputStream();
             GOOGLE_USER_DATA = readResponse(is);
             is.close();
-            Intent intent = new Intent(mActivity, UserHome.class);
+            Intent intent = new Intent(mActivity, UserSelection.class);
             intent.putExtra(Constants.emailId, mEmail);
             mActivity.startActivity(intent);
             mActivity.finish();
