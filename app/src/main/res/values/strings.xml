@@ -25,4 +25,6 @@
     <string name="title_activity_user_review_order">UserReviewOrder</string>
     <string name="title_activity_user_payment">UserPayment</string>
     <string name="title_activity_order_detail">OrderDetail</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_shopping_cart">shopping_cart</string>
 </resources>

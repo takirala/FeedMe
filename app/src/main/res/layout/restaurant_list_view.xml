@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/restaurantIcon"
+        android:src="@drawable/publix"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:maxWidth="50dp"
+        android:minHeight="50dp"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/restaurantName"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/restaurantIcon"
+        android:layout_toRightOf="@+id/restaurantIcon"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
