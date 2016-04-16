@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme.restaurant;
+package smartfoodcluster.feedme.user;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,12 +9,12 @@ import android.view.View;
 
 import smartfoodcluster.feedme.R;
 
-public class ViewOrders extends AppCompatActivity {
+public class RestaurantHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_orders);
+        setContentView(R.layout.activity_restaurant_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

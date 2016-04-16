@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="smartfoodcluster.feedme.user.UserSelection"
-    tools:showIn="@layout/activity_user_selection">
+    tools:context=".user.UserSelection"
+    tools:showIn="@layout/app_bar_user_selection">
 
 </RelativeLayout>

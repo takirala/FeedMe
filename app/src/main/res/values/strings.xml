@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">FeedMe</string>
+    <string name="app_name">Feed It</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -15,16 +14,28 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_sing_up">SingUp</string>
-    <string name="title_activity_user_home">UserHome</string>
-    <string name="title_activity_restaurant_home">RestaurantHome</string>
-    <string name="title_activity_view_orders">ViewOrders</string>
-    <string name="title_activity_edit_menu">EditMenu</string>
-    <string name="title_activity_user_selection">UserSelection</string>
-    <string name="title_activity_user_view_menu">UserViewMenu</string>
-    <string name="title_activity_user_review_order">UserReviewOrder</string>
-    <string name="title_activity_user_payment">UserPayment</string>
-    <string name="title_activity_order_detail">OrderDetail</string>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_shopping_cart">shopping_cart</string>
+    <string name="title_activity_login">FeedMe</string>
+    <string name="title_activity_sing_up">Sign Up</string>
+    <string name="title_activity_user_home">User Home</string>
+    <string name="title_activity_restaurant_home">Restaurant Home</string>
+    <string name="title_activity_view_orders">View Orders</string>
+    <string name="title_activity_edit_menu">Edit Menu</string>
+    <string name="title_activity_user_selection">Restaurants Nearby</string>
+    <string name="title_activity_user_view_menu">User View Menu</string>
+    <string name="title_activity_user_review_order">User Review Order</string>
+    <string name="title_activity_user_payment">User Payment</string>
+    <string name="title_activity_order_detail">Order Detail</string>
+    <string name="title_activity_restaurateur_home">Restaurateur Home</string>
+    <string name="title_activity_user_map_view">Map</string>
+    <string name="section_format">%1$d</string>
+    <string name="title_activity_user_restaurant_finder">UserRestaurantFinder</string>
+    <string name="large_text"></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_section_1">New</string>
+    <string name="title_section_2">Processed</string>
+    <string name="title_section_3">Completed</string>
 </resources>
