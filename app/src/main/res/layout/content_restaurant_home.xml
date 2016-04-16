@@ -12,4 +12,38 @@
     tools:context=".user.RestaurantHome"
     tools:showIn="@layout/activity_restaurant_home">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/restaurantImage"
+        android:layout_alignParentEnd="true"
+        android:maxWidth="100dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/publix"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/RestaurantDescriptionGui"
+        android:layout_alignTop="@+id/restaurantImage"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menuItemsGui"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/restaurantImage"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Out"
+        android:id="@+id/checkoutButtonGui"
+        android:layout_below="@+id/menuItemsGui"
+        android:layout_alignParentRight="true" />
+
 </RelativeLayout>

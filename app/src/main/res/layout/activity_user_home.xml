@@ -12,23 +12,23 @@
     tools:context="smartfoodcluster.feedme.user.UserHome"
     tools:showIn="@layout/activity_user_home">
 
-    <TextView
+  <!--  <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Restaurants Nearby"
+        android:text="Restaurants"
         android:id="@+id/RestaurantLabel"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:background="#bffac1"
         android:layout_marginBottom="5dp"
-        android:autoText="false" />
+        android:autoText="false" /> -->
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/restaurantList"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/RestaurantLabel" />
+        android:layout_centerHorizontal="true"></ListView>
+      <!--  android:layout_below="@+id/RestaurantLabel" />-->
 
 </RelativeLayout>
