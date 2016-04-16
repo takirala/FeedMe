@@ -28,15 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".user.UserHome"
-            android:label="@string/title_activity_user_home"
-            android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.auth.LoginActivity" />
-        </activity>
-        <activity
             android:name=".user.RestaurantHome"
             android:label="@string/title_activity_restaurant_home"
             android:parentActivityName=".auth.LoginActivity"
@@ -63,14 +54,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="smartfoodcluster.feedme.user.UserHome" />
         </activity>
+
         <activity
-            android:name=".user.UserPayment"
-            android:label="@string/title_activity_user_payment"
-            android:parentActivityName=".user.UserReviewOrder"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".user.UserViewMenu"
+            android:label="@string/title_activity_user_view_menu"
+            android:parentActivityName=".user.UserSelection"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserReviewOrder" />
+                android:value="smartfoodcluster.feedme.user.UserSelection" />
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -98,7 +90,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".shopping_cart"
+            android:name=".user.ShoppingCart"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

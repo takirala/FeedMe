@@ -19,5 +19,4 @@ public class Constants {
         public static final boolean USER = true;
         public static final boolean OWNER = false;
     }
-
 }

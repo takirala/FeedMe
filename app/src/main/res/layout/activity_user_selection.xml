@@ -22,4 +22,11 @@
         app:headerLayout="@layout/nav_header_user_selection"
         app:menu="@menu/activity_user_selection_drawer" />
 
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/restaurantList"
+        android:layout_centerHorizontal="true"></ListView>
+
 </android.support.v4.widget.DrawerLayout>

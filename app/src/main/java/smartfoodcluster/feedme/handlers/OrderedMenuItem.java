@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme.restaurant;
+package smartfoodcluster.feedme.handlers;
 
 /**
  * Created by hemanth.pinaka on 4/15/2016.

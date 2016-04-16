@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import smartfoodcluster.feedme.auth.LoginActivity;
-import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
