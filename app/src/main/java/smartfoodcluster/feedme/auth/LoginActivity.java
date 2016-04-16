@@ -19,6 +19,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 
 import smartfoodcluster.feedme.R;
+import smartfoodcluster.feedme.user.UserMapView;
 import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
@@ -87,10 +88,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToNextPage(boolean userRole) {
         if (userRole == Constants.UserRole.USER) {
-            Intent i = new Intent(getApplicationContext(), UserSelection.class);
+            Intent i = new Intent(getApplicationContext(), UserMapView.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_selection);
+            setContentView(R.layout.activity_user_map_view);
         } else {
             Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
             i.putExtra(Constants.showSuccess, true);
