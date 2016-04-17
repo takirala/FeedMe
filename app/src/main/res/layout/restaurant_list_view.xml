@@ -7,7 +7,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/restaurantIcon"
-        android:src="@drawable/publix"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:maxWidth="50dp"
@@ -17,6 +16,7 @@
         android:cropToPadding="false"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="10dp" />
+    <!--android:src="@drawable/publix"-->
 
     <TextView
         android:layout_width="wrap_content"

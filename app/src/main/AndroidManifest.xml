@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.NETWORK" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,53 +31,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".user.RestaurantHome"
-            android:label="@string/title_activity_restaurant_home"
-            android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.auth.LoginActivity" />
-        </activity>
-        <activity
-            android:name=".restaurateur.EditMenu"
-            android:label="@string/title_activity_edit_menu"
-            android:parentActivityName=".user.RestaurantHome"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".user.RestaurantHome" />
-        </activity>
-        <activity
-            android:name=".user.UserSelection"
+            android:name=".user.UserHome"
             android:label="@string/title_activity_user_selection"
             android:parentActivityName=".auth.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserSelection" />
+                android:value=".user.UserHome" />
         </activity>
         <activity
             android:name=".user.UserViewMenu"
             android:label="@string/title_activity_user_view_menu"
-            android:parentActivityName=".user.UserSelection"
+            android:parentActivityName=".user.UserHome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserSelection" />
+                android:value=".user.UserHome" />
         </activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".user.UserPayment"
+            android:label="@string/title_activity_user_payment"
+            android:parentActivityName=".user.ShoppingCart"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.user.UserPayment" />
+        </activity>
         <activity
             android:name=".restaurateur.RestaurateurHome"
             android:label="@string/title_activity_restaurateur_home"
@@ -89,10 +79,34 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".user.ShoppingCart"
-            android:label="@string/title_activity_shopping_cart"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_shopping_cart_screen"
+            android:parentActivityName=".user.UserViewMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.user.UserViewMenu" />
+        </activity>
+        <!--<activity-->
+        <!--android:name=".user.UserViewMenu"-->
+        <!--android:label="@string/title_activity_user_view_menu_screen"-->
+        <!--android:parentActivityName=".user.UserHome"-->
+        <!--android:theme="@style/AppTheme.NoActionBar">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value=".user.UserHome" />-->
+        <!--</activity>-->
+        <activity
+            android:name=".qrcode.QRCodeScanner"
+            android:label="@string/title_activity_qrcode_scanner"
+            android:parentActivityName=".auth.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.auth.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

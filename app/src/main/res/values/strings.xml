@@ -16,11 +16,9 @@
     </string>
 
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_shopping_cart">shopping_cart</string>
     <string name="title_activity_login">FeedMe</string>
     <string name="title_activity_sing_up">Sign Up</string>
     <string name="title_activity_user_home">User Home</string>
-    <string name="title_activity_restaurant_home">Restaurant Home</string>
     <string name="title_activity_view_orders">View Orders</string>
     <string name="title_activity_edit_menu">Edit Menu</string>
     <string name="title_activity_user_selection">Restaurants Nearby</string>
@@ -38,6 +36,9 @@
     <string name="title_section_1">New</string>
     <string name="title_section_2">Processed</string>
     <string name="title_section_3">Completed</string>
+    <string name="title_activity_shopping_cart_screen">Check Out</string>
+    <string name="title_activity_user_view_menu_screen">Restaurant Home</string>
+
 
     <!-- Custom string constants-->
     <string name="no_location_detected">Please enable the location OR \n Try again later.</string>
@@ -52,5 +53,6 @@
     <string name="start_updates">Start updates</string>
     <string name="stop_updates">Stop updates</string>
     <string name="location_updated_message">Location updated</string>
+    <string name="title_activity_qrcode_scanner">QR Code Scanner</string>
 
 </resources>

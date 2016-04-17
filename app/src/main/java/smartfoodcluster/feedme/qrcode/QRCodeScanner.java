@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme.user;
+package smartfoodcluster.feedme.qrcode;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,27 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import smartfoodcluster.feedme.R;
-import smartfoodcluster.feedme.dao.ShoppingCartDao;
 
-public class ShoppingCart extends AppCompatActivity
+public class QRCodeScanner extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    HashMap<String, Integer> orderedItemsMap = new HashMap<String, Integer>();
-    ArrayList<ShoppingCartDao> finalOrderListArray = new ArrayList<ShoppingCartDao>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart_screen);
+        setContentView(R.layout.activity_qrcode_scanner);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,13 +42,6 @@ public class ShoppingCart extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            calculateSum(extras);
-        }
-
-
     }
 
     @Override
@@ -75,7 +57,7 @@ public class ShoppingCart extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.shopping_cart_screen, menu);
+        getMenuInflater().inflate(R.menu.qrcode_scanner, menu);
         return true;
     }
 
@@ -117,52 +99,5 @@ public class ShoppingCart extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void calculateSum(Bundle extras) {
-        if (extras != null) {
-            orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable("orderedItemMap");
-            ListView orderSummaryListView = (ListView) findViewById(R.id.itemsOrderedListGui);
-            finalOrderListArray = new ArrayList<ShoppingCartDao>();
-            Integer totalBill = 0;
-
-            for (String menuItem : orderedItemsMap.keySet()) {
-                totalBill += orderedItemsMap.get(menuItem) * 45;
-                finalOrderListArray.add(new ShoppingCartDao(menuItem, new Integer(45), orderedItemsMap.get(menuItem)));
-            }
-            ArrayAdapter<ShoppingCartDao> adapter = new ShoppingCartAdapter();
-            orderSummaryListView.setAdapter(adapter);
-            ((TextView) findViewById(R.id.totalAmountGui)).setText(totalBill.toString());
-
-        }
-
-    }
-
-
-    private class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartDao> {
-
-        public ShoppingCartAdapter() {
-            super(ShoppingCart.this, R.layout.shopping_cart_list_view, finalOrderListArray);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View thisView=convertView;
-            if(thisView==null){
-                thisView= getLayoutInflater().inflate(R.layout.shopping_cart_list_view,parent,false);
-            }
-
-            ShoppingCartDao itemOnFocus = finalOrderListArray.get(position);
-            TextView restaurantNameGui = (TextView)thisView.findViewById(R.id.menuItemGui);
-            restaurantNameGui.setText(itemOnFocus.getMenuItem());
-            TextView countGui = (TextView)thisView.findViewById(R.id.itemCountGui);
-            countGui.setText(itemOnFocus.getCountForItem().toString());
-            TextView amountPerItem =(TextView)thisView.findViewById(R.id.totalPerItemGui);
-            amountPerItem.setText(new Integer(itemOnFocus.getCountForItem()*itemOnFocus.getCostForItem()).toString());
-
-            return thisView;
-        }
-
-
     }
 }

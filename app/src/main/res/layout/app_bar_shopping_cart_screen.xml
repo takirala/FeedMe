@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".user.RestaurantHome">
+    tools:context=".user.ShoppingCart">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,12 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/content_restaurant_home" />
-    </RelativeLayout>
+    <include layout="@layout/content_shopping_cart_screen" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

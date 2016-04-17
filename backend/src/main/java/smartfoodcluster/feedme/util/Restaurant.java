@@ -8,16 +8,66 @@ import com.googlecode.objectify.annotation.Stringify;
 import java.util.Date;
 
 /**
-
  * Created by Srinivas on 4/16/2016.
  */
 @Entity
 public class Restaurant {
-    @Id Long id;
+    @Id
+    Long id;
     String email;
+    String name;
+    String vicinity;
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    String placeId;
+
+    public String getVicinity() {
+        return vicinity;
+    }
+
+    public void setVicinity(String vicinity) {
+        this.vicinity = vicinity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     String address;
-    @Container Order order;
-    @Container Menu menu;
+    String price_level;
+    String rating;
+    @Container
+    Order order;
+
+    public String getPrice_level() {
+        return price_level;
+    }
+
+    public void setPrice_level(String price_level) {
+        this.price_level = price_level;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    @Container
+    Menu menu;
 
     public Long getId() {
         return id;
@@ -62,7 +112,8 @@ public class Restaurant {
 
 @Entity
 class Order {
-    @Id Long id;
+    @Id
+    Long id;
     String status;
     Float totalAmount;
 
@@ -107,12 +158,14 @@ class Order {
     }
 
     Date orderDate;
-    @Container OrderDetails orderDetails;
+    @Container
+    OrderDetails orderDetails;
 }
 
 @Entity
 class Menu {
-    @Id Long itemId;
+    @Id
+    Long itemId;
     String itemName;
     Float price;
 

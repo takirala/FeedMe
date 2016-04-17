@@ -3,13 +3,10 @@ package smartfoodcluster.feedme.user;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,25 +27,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
+
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.Place;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import smartfoodcluster.feedme.R;
-import smartfoodcluster.feedme.handlers.RestaurantGui;
+import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
-public class UserSelection extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
-    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+import smartfoodcluster.feedme.R;
 
-    protected static final String TAG = "UserSelection";
+import smartfoodcluster.feedme.handlers.LocationHandler;
+
+public class UserHome extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+
+    protected static final String TAG = "UserHome";
 
     /**
      * Represents a geographical location.
@@ -57,6 +55,8 @@ public class UserSelection extends AppCompatActivity
 
     protected Double mLatitudeText;
     protected Double mLongitudeText;
+    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+    List<Place> res = new ArrayList<Place>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +64,38 @@ public class UserSelection extends AppCompatActivity
 
         setContentView(R.layout.activity_user_selection);
 
-        LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String best = mgr.getBestProvider(criteria, true);
-        Location location;
+        Location location = getLastBestLocation();
+        if (res.size() == 0) {
+            Log.e(TAG, "Performing search ");
+            double[] loc = new double[2];
 
-        location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Log.e(TAG, location.getLatitude() + " " + location.getLongitude());
+            if (location == null) {
+                // Default to MSL @UFL
+                loc[0] = 29.6481041;
+                loc[1] = -82.3462533;
+            } else {
+                loc[0] = location.getLatitude();
+                loc[1] = location.getLongitude();
+            }
+            Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "Enable location permission!!!!");
-            return;
+            LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
+                @Override
+                public void processFinish(List<Restaurant> output) {
+                    for (Restaurant p : output) {
+                        Log.e(TAG, p.toString());
+                    }
+                    Log.e(TAG, "Search performed");
+                }
+            }).execute(loc);
+
+        } else {
+            Log.e(TAG, "Location not found");
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         List restaurantLista = populateList();
 
@@ -92,13 +109,13 @@ public class UserSelection extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RestaurantGui selectedRestaurantGui = restaurants.get(position);
                 String selectedRestaurant = selectedRestaurantGui.getRestaurantName();
-                Toast.makeText(UserSelection.this, selectedRestaurant, Toast.LENGTH_LONG).show();
+                Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
                 i.putExtra("restaurantName", selectedRestaurant);
                 i.putExtra("RestaurantIcon", selectedRestaurantGui.getRestaurantIconId());
                 startActivity(i);
-                setContentView(R.layout.activity_restaurant_home);
+                setContentView(R.layout.activity_user_view_menu_screen);
             }
         });
 
@@ -111,6 +128,33 @@ public class UserSelection extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private Location getLastBestLocation() {
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "Enable location permission!!!!");
+            return null;
+        }
+        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        long GPSLocationTime = 0;
+        if (null != locationGPS) {
+            GPSLocationTime = locationGPS.getTime();
+        }
+
+        long NetLocationTime = 0;
+
+        if (null != locationNet) {
+            NetLocationTime = locationNet.getTime();
+        }
+
+        if (0 < GPSLocationTime - NetLocationTime) {
+            return locationGPS;
+        } else {
+            return locationNet;
+        }
     }
 
     @Override
@@ -199,7 +243,7 @@ public class UserSelection extends AppCompatActivity
         // in rare cases when a location is not available.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(UserSelection.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
+            Toast.makeText(UserHome.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
             return;
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -238,7 +282,7 @@ public class UserSelection extends AppCompatActivity
     private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
 
         public RestaurantAdapter() {
-            super(UserSelection.this, R.layout.restaurant_list_view, restaurants);
+            super(UserHome.this, R.layout.restaurant_list_view, restaurants);
         }
 
         @Override
@@ -256,7 +300,6 @@ public class UserSelection extends AppCompatActivity
 
             TextView restaurantNameTextView = (TextView) thisView.findViewById(R.id.restaurantName);
             restaurantNameTextView.setText(selectedRestaurant.getRestaurantName());
-
             return thisView;
         }
 

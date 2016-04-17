@@ -9,13 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".user.UserHome"
-    tools:showIn="@layout/app_bar_user_selection">
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/restaurantList"
-        android:layout_centerHorizontal="true"/>
+    tools:context=".qrcode.QRCodeScanner"
+    tools:showIn="@layout/app_bar_qrcode_scanner">
 
 </RelativeLayout>
