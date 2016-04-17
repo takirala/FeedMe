@@ -25,6 +25,7 @@ import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
+import smartfoodcluster.feedme.user.UserPayment;
 import smartfoodcluster.feedme.user.UserSelection;
 import smartfoodcluster.feedme.util.Constants;
 
@@ -100,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         if (userRole == Constants.UserRole.USER) {
 
 
-            Intent i = new Intent(getApplicationContext(), UserSelection.class);
+            Intent i = new Intent(getApplicationContext(), UserPayment.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_selection);
+            setContentView(R.layout.activity_user_payment);
 
 
         } else {
