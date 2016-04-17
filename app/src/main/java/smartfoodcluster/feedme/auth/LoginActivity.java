@@ -24,6 +24,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
+import smartfoodcluster.feedme.qrcode.QRCodeScanner;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
 import smartfoodcluster.feedme.user.UserPayment;
 import smartfoodcluster.feedme.user.UserSelection;
@@ -43,6 +44,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constants.adminMode) {
+            Intent i = new Intent(getApplicationContext(), QRCodeScanner.class);
+            startActivity(i);
+            setContentView(R.layout.activity_qrcode_scanner);
+        }
+
         setContentView(R.layout.activity_login);
         SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
         final boolean userAuthenticated = settings.getBoolean(Constants.userAuthenticated, false);

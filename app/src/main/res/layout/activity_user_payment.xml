@@ -26,19 +26,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/app_bar_height"
+        android:orientation="vertical"
         android:weightSum="1">
+
 
         <ProgressBar
             android:id="@+id/progressBarPayment"
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="match_parent"
-            android:layout_height="393dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:text="Making Payment" />
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:text="Payment in Progress.." />
+
+        <TextView
+            android:id="@+id/progressBarPaymentText"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/progressBarPayment"
+            android:layout_alignLeft="@id/progressBarPayment"
+            android:layout_alignRight="@id/progressBarPayment"
+            android:layout_alignTop="@id/progressBarPayment"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:text="Payment in Progress..." />
+
+
+        <ImageView
+            android:id="@+id/qrCode"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <!--android:layout_marginStart="50dp"-->
+        <!--android:layout_marginTop="50dp"-->
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

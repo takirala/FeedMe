@@ -39,6 +39,7 @@ import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import smartfoodcluster.feedme.UserViewMenuScreen;
 import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
@@ -306,9 +307,6 @@ public class UserSelection extends AppCompatActivity
 
             TextView restaurantNameTextView = (TextView) thisView.findViewById(R.id.restaurantName);
             restaurantNameTextView.setText(selectedRestaurant.getRestaurantName());
-
-
-
             return thisView;
         }
 

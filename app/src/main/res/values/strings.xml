@@ -55,5 +55,6 @@
     <string name="start_updates">Start updates</string>
     <string name="stop_updates">Stop updates</string>
     <string name="location_updated_message">Location updated</string>
+    <string name="title_activity_qrcode_scanner">QR Code Scanner</string>
 
 </resources>
