@@ -29,6 +29,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
@@ -93,7 +95,7 @@ public class UserSelection extends AppCompatActivity
                 Toast.makeText(UserSelection.this, selectedRestaurant, Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
-                i.putExtra("restarantName", selectedRestaurant);
+                i.putExtra("restaurantName", selectedRestaurant);
                 i.putExtra("RestaurantIcon", selectedRestaurantGui.getRestaurantIconId());
                 startActivity(i);
                 setContentView(R.layout.activity_restaurant_home);
