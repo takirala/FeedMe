@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
@@ -26,8 +25,7 @@ import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.qrcode.QRCodeScanner;
 import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
-import smartfoodcluster.feedme.user.UserPayment;
-import smartfoodcluster.feedme.user.UserSelection;
+import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
@@ -110,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             //Intent i = new Intent(getApplicationContext(), UserPayment.class);
-            Intent i = new Intent(getApplicationContext(), UserSelection.class);
+            Intent i = new Intent(getApplicationContext(), UserHome.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
             setContentView(R.layout.activity_user_selection);

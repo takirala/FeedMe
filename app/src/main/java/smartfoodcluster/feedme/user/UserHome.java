@@ -3,13 +3,10 @@ package smartfoodcluster.feedme.user;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,28 +29,22 @@ import android.widget.Toast;
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import smartfoodcluster.feedme.UserViewMenuScreen;
 import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
 import smartfoodcluster.feedme.R;
 
 import smartfoodcluster.feedme.handlers.LocationHandler;
-import smartfoodcluster.feedme.dao.RestaurantGui;
-import smartfoodcluster.feedme.util.Constants;
 
-public class UserSelection extends AppCompatActivity
+public class UserHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
-    protected static final String TAG = "UserSelection";
+    protected static final String TAG = "UserHome";
 
     /**
      * Represents a geographical location.
@@ -116,9 +107,9 @@ public class UserSelection extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RestaurantGui selectedRestaurantGui = restaurants.get(position);
                 String selectedRestaurant = selectedRestaurantGui.getRestaurantName();
-                Toast.makeText(UserSelection.this, selectedRestaurant, Toast.LENGTH_LONG).show();
+                Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(getApplicationContext(), UserViewMenuScreen.class);
+                Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
                 i.putExtra("restarantName", selectedRestaurant);
                 i.putExtra("RestaurantIcon", selectedRestaurantGui.getRestaurantIconId());
                 startActivity(i);
@@ -250,7 +241,7 @@ public class UserSelection extends AppCompatActivity
         // in rare cases when a location is not available.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(UserSelection.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
+            Toast.makeText(UserHome.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
             return;
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -289,7 +280,7 @@ public class UserSelection extends AppCompatActivity
     private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
 
         public RestaurantAdapter() {
-            super(UserSelection.this, R.layout.restaurant_list_view, restaurants);
+            super(UserHome.this, R.layout.restaurant_list_view, restaurants);
         }
 
         @Override

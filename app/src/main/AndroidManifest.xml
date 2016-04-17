@@ -30,42 +30,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".restaurateur.EditMenu"
-            android:label="@string/title_activity_edit_menu"
-            android:parentActivityName=".user.RestaurantHome"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".user.RestaurantHome" />
-        </activity>
-        <activity
-            android:name=".user.UserSelection"
+            android:name=".user.UserHome"
             android:label="@string/title_activity_user_selection"
             android:parentActivityName=".auth.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserSelection" />
+                android:value=".user.UserHome" />
         </activity>
         <activity
             android:name=".user.UserViewMenu"
             android:label="@string/title_activity_user_view_menu"
-            android:parentActivityName=".user.UserSelection"
+            android:parentActivityName=".user.UserHome"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserSelection" />
+                android:value=".user.UserHome" />
         </activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -99,23 +81,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ShoppingCartScreen"
+            android:name=".user.ShoppingCart"
             android:label="@string/title_activity_shopping_cart_screen"
-            android:parentActivityName=".user.RestaurantHome"
+            android:parentActivityName=".user.UserViewMenu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.RestaurantHome" />
+                android:value="smartfoodcluster.feedme.user.UserViewMenu" />
         </activity>
-        <activity
-            android:name=".UserViewMenuScreen"
-            android:label="@string/title_activity_user_view_menu_screen"
-            android:parentActivityName=".user.UserSelection"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.user.UserSelection" />
-        </activity>
+        <!--<activity-->
+        <!--android:name=".user.UserViewMenu"-->
+        <!--android:label="@string/title_activity_user_view_menu_screen"-->
+        <!--android:parentActivityName=".user.UserHome"-->
+        <!--android:theme="@style/AppTheme.NoActionBar">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value=".user.UserHome" />-->
+        <!--</activity>-->
         <activity
             android:name=".qrcode.QRCodeScanner"
             android:label="@string/title_activity_qrcode_scanner"

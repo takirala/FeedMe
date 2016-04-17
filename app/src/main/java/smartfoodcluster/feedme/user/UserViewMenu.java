@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme;
+package smartfoodcluster.feedme.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.RestaurantGui;
 
-public class UserViewMenuScreen extends AppCompatActivity
+public class UserViewMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     List<RestaurantGui> restaurants=new ArrayList<RestaurantGui>();
@@ -81,7 +82,7 @@ public class UserViewMenuScreen extends AppCompatActivity
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ShoppingCartScreen.class);
+                Intent i = new Intent(getApplicationContext(), ShoppingCart.class);
                 i.putExtra("orderedItemMap", orderedItemMap);
                 startActivity(i);
                 setContentView(R.layout.activity_shopping_cart_screen);
@@ -118,7 +119,7 @@ public class UserViewMenuScreen extends AppCompatActivity
     private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
 
         public RestaurantAdapter(){
-            super(UserViewMenuScreen.this,R.layout.restaurant_list_view,restaurants);
+            super(UserViewMenu.this,R.layout.restaurant_list_view,restaurants);
         }
 
         @Override

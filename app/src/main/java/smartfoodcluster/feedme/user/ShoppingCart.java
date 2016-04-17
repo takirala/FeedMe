@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme;
+package smartfoodcluster.feedme.user;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,9 +20,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.ShoppingCartDao;
 
-public class ShoppingCartScreen extends AppCompatActivity
+public class ShoppingCart extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     HashMap<String, Integer> orderedItemsMap = new HashMap<String, Integer>();
@@ -141,7 +142,7 @@ public class ShoppingCartScreen extends AppCompatActivity
     private class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartDao> {
 
         public ShoppingCartAdapter() {
-            super(ShoppingCartScreen.this, R.layout.shopping_cart_list_view, finalOrderListArray);
+            super(ShoppingCart.this, R.layout.shopping_cart_list_view, finalOrderListArray);
         }
 
         @Override
