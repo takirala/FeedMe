@@ -59,16 +59,13 @@ public class UserSelection extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_user_selection);
-
         LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String best = mgr.getBestProvider(criteria, true);
         Location location;
 
         location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Log.e(TAG, location.getLatitude() + " " + location.getLongitude());
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e(TAG, "Enable location permission!!!!");
@@ -99,7 +96,6 @@ public class UserSelection extends AppCompatActivity
                 setContentView(R.layout.activity_restaurant_home);
             }
         });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
