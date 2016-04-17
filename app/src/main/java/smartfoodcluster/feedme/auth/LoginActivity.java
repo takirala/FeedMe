@@ -101,10 +101,12 @@ public class LoginActivity extends AppCompatActivity {
         if (userRole == Constants.UserRole.USER) {
 
 
-            Intent i = new Intent(getApplicationContext(), UserPayment.class);
+            //Intent i = new Intent(getApplicationContext(), UserPayment.class);
+            Intent i = new Intent(getApplicationContext(), UserSelection.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_payment);
+            setContentView(R.layout.activity_user_selection);
+            //setContentView(R.layout.activity_user_payment);
 
 
         } else {
