@@ -30,15 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".user.RestaurantHome"
-            android:label="@string/title_activity_restaurant_home"
-            android:parentActivityName=".auth.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="smartfoodcluster.feedme.auth.LoginActivity" />
-        </activity>
+
         <activity
             android:name=".restaurateur.EditMenu"
             android:label="@string/title_activity_edit_menu"
@@ -106,10 +98,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".user.ShoppingCart"
-            android:label="@string/title_activity_shopping_cart"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ShoppingCartScreen"
             android:label="@string/title_activity_shopping_cart_screen"
