@@ -2,7 +2,6 @@ package smartfoodcluster.feedme.backend;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.CollectionResponse;
@@ -15,7 +14,7 @@ import com.googlecode.objectify.cmd.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-import smartfoodcluster.feedme.util.User;
+import smartfoodcluster.feedme.entities.User;
 
 import static smartfoodcluster.feedme.util.OfyService.ofy;
 

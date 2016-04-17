@@ -14,8 +14,7 @@ import com.googlecode.objectify.cmd.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-import smartfoodcluster.feedme.util.Restaurant;
-import smartfoodcluster.feedme.util.User;
+import smartfoodcluster.feedme.entities.Restaurant;
 
 import static smartfoodcluster.feedme.util.OfyService.ofy;
 
@@ -79,8 +78,8 @@ public class RestaurantEndpoint {
     }
 
     @ApiMethod(name = "listRestaurants")
-    public CollectionResponse<Restaurant> listRestauranr(@Nullable @Named("cursor") String cursorString,
-                                              @Nullable @Named("count") Integer count) {
+    public static CollectionResponse<Restaurant> listRestaurants(@Nullable @Named("cursor") String cursorString,
+                                                                 @Nullable @Named("count") Integer count) {
 
         Query<Restaurant> query = ofy().load().type(Restaurant.class);
         if (count != null) query.limit(count);
