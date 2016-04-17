@@ -2,29 +2,33 @@ package appcloud.controller;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Pair;
 import android.widget.Toast;
 
+import com.appspot.myapplicationid.userEndpoint.UserEndpoint;
+import com.appspot.myapplicationid.userEndpoint.model.User;
+import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
-import smartfoodcluster.feedme.backend.myApi.MyApi;
-
-/**
- * Created by Srinivas on 4/15/2016.
- */
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-    private static MyApi myApiService = null;
+class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
+    private static UserEndpoint myApiService = null;
     private Context context;
 
+    EndpointsAsyncTask(Context context) {
+        this.context = context;
+    }
+
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
-        if (myApiService == null) {  // Only do this once
-            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+    protected List<User> doInBackground(Void... params) {
+        if (myApiService == null) { // Only do this once
+            UserEndpoint.Builder builder = new UserEndpoint.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
@@ -41,18 +45,17 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             myApiService = builder.build();
         }
 
-        context = params[0].first;
-        String name = params[0].second;
-
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.listUsers().execute().getItems();
         } catch (IOException e) {
-            return e.getMessage();
+            return Collections.EMPTY_LIST;
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+    protected void onPostExecute(List<User> result) {
+        for (User q : result) {
+            Toast.makeText(context, q.getEmail() + " : " + q.getName(), Toast.LENGTH_LONG).show();
+        }
     }
 }

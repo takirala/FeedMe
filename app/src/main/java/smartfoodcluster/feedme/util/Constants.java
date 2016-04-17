@@ -12,6 +12,7 @@ public class Constants {
     public static String showSuccess = "showSuccess";
     public static String userRole = "userRole";
     public static String userAuthenticated = "userAuthenticated";
+    public static String requestLocation = "Please enable your location";
 
     public static final String PREFS_NAME = "MyPrefsFile";
 
