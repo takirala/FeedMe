@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".user.ShoppingCart"
-    tools:showIn="@layout/activity_shopping_cart">
+    tools:context="smartfoodcluster.feedme.ShoppingCartScreen"
+    tools:showIn="@layout/app_bar_shopping_cart_screen">
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,4 +41,5 @@
         android:layout_below="@id/itemsOrderedListGui"
         android:layout_toRightOf="@id/itemsOrderedListGui"
         android:textAlignment="viewEnd" />
+
 </RelativeLayout>

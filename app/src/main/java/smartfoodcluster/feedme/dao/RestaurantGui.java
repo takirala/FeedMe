@@ -1,4 +1,4 @@
-package smartfoodcluster.feedme.handlers;
+package smartfoodcluster.feedme.dao;
 
 /**
  * Created by hemanth.pinaka on 4/6/2016.

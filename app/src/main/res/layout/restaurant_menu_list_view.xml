@@ -19,8 +19,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/menuItemCount"
         android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/addItemButton"
-        android:layout_toStartOf="@+id/addItemButton" />
+        android:layout_toStartOf="@+id/costOfItemGui"
+        android:layout_marginRight="15dp"
+        android:autoText="false"
+        android:textAlignment="center" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,5 +34,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/costOfItemGui"
+        android:text="45"
+        android:layout_alignBottom="@+id/menuItemCount"
+        android:layout_toStartOf="@+id/addItemButton" />
 </RelativeLayout>

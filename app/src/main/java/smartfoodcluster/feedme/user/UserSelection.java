@@ -39,10 +39,14 @@ import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 import java.util.List;
+import smartfoodcluster.feedme.UserViewMenuScreen;
+import smartfoodcluster.feedme.dao.RestaurantGui;
+import smartfoodcluster.feedme.util.Constants;
 
 import smartfoodcluster.feedme.R;
+
 import smartfoodcluster.feedme.handlers.LocationHandler;
-import smartfoodcluster.feedme.handlers.RestaurantGui;
+import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
 public class UserSelection extends AppCompatActivity
@@ -113,11 +117,11 @@ public class UserSelection extends AppCompatActivity
                 String selectedRestaurant = selectedRestaurantGui.getRestaurantName();
                 Toast.makeText(UserSelection.this, selectedRestaurant, Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
+                Intent i = new Intent(getApplicationContext(), UserViewMenuScreen.class);
                 i.putExtra("restarantName", selectedRestaurant);
                 i.putExtra("RestaurantIcon", selectedRestaurantGui.getRestaurantIconId());
                 startActivity(i);
-                setContentView(R.layout.activity_restaurant_home);
+                setContentView(R.layout.activity_user_view_menu_screen);
             }
         });
 
@@ -302,6 +306,8 @@ public class UserSelection extends AppCompatActivity
 
             TextView restaurantNameTextView = (TextView) thisView.findViewById(R.id.restaurantName);
             restaurantNameTextView.setText(selectedRestaurant.getRestaurantName());
+
+
 
             return thisView;
         }

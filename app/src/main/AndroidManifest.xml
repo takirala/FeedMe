@@ -108,6 +108,24 @@
             android:name=".user.ShoppingCart"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShoppingCartScreen"
+            android:label="@string/title_activity_shopping_cart_screen"
+            android:parentActivityName=".user.RestaurantHome"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.user.RestaurantHome" />
+        </activity>
+        <activity
+            android:name=".UserViewMenuScreen"
+            android:label="@string/title_activity_user_view_menu_screen"
+            android:parentActivityName=".user.UserSelection"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="smartfoodcluster.feedme.user.UserSelection" />
+        </activity>
 
     </application>
 

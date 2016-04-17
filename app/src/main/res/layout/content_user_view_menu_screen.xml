@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".user.RestaurantHome"
-    tools:showIn="@layout/activity_restaurant_home">
+    tools:context="smartfoodcluster.feedme.UserViewMenuScreen"
+    tools:showIn="@layout/app_bar_user_view_menu_screen">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp"
+        android:dividerHeight="13.0sp"
         android:id="@+id/menuItemsGui"
         android:layout_alignParentEnd="false"
         android:layout_below="@+id/restaurantImage"
