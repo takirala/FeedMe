@@ -16,11 +16,9 @@
     </string>
 
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_shopping_cart">shopping_cart</string>
     <string name="title_activity_login">FeedMe</string>
     <string name="title_activity_sing_up">Sign Up</string>
     <string name="title_activity_user_home">User Home</string>
-    <string name="title_activity_restaurant_home">Restaurant Home</string>
     <string name="title_activity_view_orders">View Orders</string>
     <string name="title_activity_edit_menu">Edit Menu</string>
     <string name="title_activity_user_selection">Restaurants Nearby</string>
