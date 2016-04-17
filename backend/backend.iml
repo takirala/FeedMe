@@ -10,9 +10,9 @@
       <configuration>
         <option name="HTTP_ADDRESS" value="localhost" />
         <option name="HTTP_PORT" value="8080" />
-        <option name="WAR_DIR" value="C:\Users\Lavenger\git\FeedMe\backend\build\exploded-app" />
-        <option name="WEB_APP_DIR" value="C:\Users\Lavenger\git\FeedMe\backend\src\main\webapp" />
-        <option name="APPENGINE_SDKROOT" value="C:\Users\Lavenger\.gradle\appengine-sdk\appengine-java-sdk-1.9.18" />
+        <option name="WAR_DIR" value="C:\Git Workspace\FeedMe\backend\build\exploded-app" />
+        <option name="WEB_APP_DIR" value="C:\Git Workspace\FeedMe\backend\src\main\webapp" />
+        <option name="APPENGINE_SDKROOT" value="C:\Users\hemanth.pinaka\.gradle\appengine-sdk\appengine-java-sdk-1.9.18" />
       </configuration>
     </facet>
     <facet type="java-gradle" name="Java-Gradle">
@@ -27,8 +27,8 @@
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated-source/endpoints/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated-source/endpoints/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/endpointsSrc/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
@@ -43,7 +43,9 @@
     <orderEntry type="library" exported="" name="appengine-endpoints-1.9.18" level="project" />
     <orderEntry type="library" exported="" name="appengine-endpoints-deps-1.9.18" level="project" />
     <orderEntry type="library" exported="" name="servlet-api-2.5" level="project" />
+    <orderEntry type="library" exported="" name="objectify-5.0.3" level="project" />
     <orderEntry type="library" exported="" name="appengine-api-1.0-sdk-1.9.18" level="project" />
+    <orderEntry type="library" exported="" name="guava-17.0" level="project" />
     <orderEntry type="library" exported="" name="backend.backend-android-endpoints" level="project" />
   </component>
 </module>
