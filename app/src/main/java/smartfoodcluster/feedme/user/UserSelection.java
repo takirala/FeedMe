@@ -29,22 +29,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import smartfoodcluster.feedme.R;
+import smartfoodcluster.feedme.handlers.LocationHandler;
 import smartfoodcluster.feedme.handlers.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
 public class UserSelection extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
-    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
 
     protected static final String TAG = "UserSelection";
 
@@ -55,25 +57,47 @@ public class UserSelection extends AppCompatActivity
 
     protected Double mLatitudeText;
     protected Double mLongitudeText;
+    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+    List<Place> res = new ArrayList<Place>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_selection);
-        LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String best = mgr.getBestProvider(criteria, true);
-        Location location;
 
-        location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location = getLastBestLocation();
+        if (res.size() == 0) {
+            Log.e(TAG, "Performing search ");
+            double[] loc = new double[2];
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "Enable location permission!!!!");
-            return;
+            if (location == null) {
+                // Default to MSL @UFL
+                loc[0] = 29.6481041;
+                loc[1] = -82.3462533;
+            } else {
+                loc[0] = location.getLatitude();
+                loc[1] = location.getLongitude();
+            }
+            Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
+
+            LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
+                @Override
+                public void processFinish(List<Restaurant> output) {
+                    for (Restaurant p : output) {
+                        Log.e(TAG, p.toString());
+                    }
+                    Log.e(TAG, "Search performed");
+                }
+            }).execute(loc);
+
+        } else {
+            Log.e(TAG, "Location not found");
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         List restaurantLista = populateList();
 
@@ -97,6 +121,7 @@ public class UserSelection extends AppCompatActivity
             }
         });
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -105,6 +130,33 @@ public class UserSelection extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private Location getLastBestLocation() {
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "Enable location permission!!!!");
+            return null;
+        }
+        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        long GPSLocationTime = 0;
+        if (null != locationGPS) {
+            GPSLocationTime = locationGPS.getTime();
+        }
+
+        long NetLocationTime = 0;
+
+        if (null != locationNet) {
+            NetLocationTime = locationNet.getTime();
+        }
+
+        if (0 < GPSLocationTime - NetLocationTime) {
+            return locationGPS;
+        } else {
+            return locationNet;
+        }
     }
 
     @Override
