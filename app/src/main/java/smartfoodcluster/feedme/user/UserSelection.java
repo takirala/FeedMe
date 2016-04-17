@@ -46,7 +46,7 @@ import smartfoodcluster.feedme.util.Constants;
 import smartfoodcluster.feedme.R;
 
 import smartfoodcluster.feedme.handlers.LocationHandler;
-import smartfoodcluster.feedme.handlers.RestaurantGui;
+import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
 public class UserSelection extends AppCompatActivity
