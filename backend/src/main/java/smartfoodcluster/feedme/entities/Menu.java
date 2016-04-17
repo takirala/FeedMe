@@ -7,7 +7,7 @@ import com.googlecode.objectify.annotation.Id;
  * Created by Srinivas on 4/17/2016.
  */
 @Entity
-class Menu {
+public class Menu {
     @Id
     Long itemId;
     String itemName;

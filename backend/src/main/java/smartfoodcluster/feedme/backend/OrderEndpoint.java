@@ -1,5 +1,6 @@
 package smartfoodcluster.feedme.backend;
 
+import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.config.Nullable;
@@ -19,6 +20,7 @@ import static smartfoodcluster.feedme.util.OfyService.ofy;
 /**
  * Created by Srinivas on 4/17/2016.
  */
+@Api(name = "orderEndpoint")
 public class OrderEndpoint {
 
     public OrderEndpoint() {
