@@ -12,6 +12,7 @@ public class OfyService {
 
     static {
         ObjectifyService.register(User.class);
+        ObjectifyService.register(Restaurant.class);
     }
 
     public static Objectify ofy() {

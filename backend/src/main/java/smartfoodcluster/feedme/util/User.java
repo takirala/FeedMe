@@ -3,6 +3,9 @@ package smartfoodcluster.feedme.util;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Lavenger on 4/16/2016.
  */
@@ -15,6 +18,7 @@ public class User {
     String role;
     String address;
     String name;
+    Map<Long, Order> orders = new HashMap<>();
 
     User() {
 
