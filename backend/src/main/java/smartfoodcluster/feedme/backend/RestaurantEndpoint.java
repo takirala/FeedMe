@@ -78,7 +78,7 @@ public class RestaurantEndpoint {
     }
 
     @ApiMethod(name = "listRestaurants")
-    public static CollectionResponse<Restaurant> listRestaurants(@Nullable @Named("cursor") String cursorString,
+    public CollectionResponse<Restaurant> listRestaurants(@Nullable @Named("cursor") String cursorString,
                                                                  @Nullable @Named("count") Integer count) {
 
         Query<Restaurant> query = ofy().load().type(Restaurant.class);

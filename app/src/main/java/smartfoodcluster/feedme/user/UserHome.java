@@ -26,6 +26,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
+
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
