@@ -12,10 +12,22 @@
     tools:context=".user.UserHome"
     tools:showIn="@layout/app_bar_user_selection">
 
+    <ProgressBar
+        android:id="@+id/progressBarRestaurantSearch"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:text="Searching for nearby restaurants..." />
+
     <ListView
+        android:id="@+id/restaurantList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/restaurantList"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

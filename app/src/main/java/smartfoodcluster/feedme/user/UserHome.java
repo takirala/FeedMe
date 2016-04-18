@@ -31,6 +31,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class UserHome extends AppCompatActivity
     protected Double mLatitudeText;
     protected Double mLongitudeText;
     List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
-    List<Place> res = new ArrayList<Place>();
+    List<Restaurant> res = new ArrayList<Restaurant>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,61 +63,49 @@ public class UserHome extends AppCompatActivity
 
         setContentView(R.layout.activity_user_selection);
 
-        Location location = getLastBestLocation();
+        double[] loc = getLastBestLocation();
         if (res.size() == 0) {
             Log.e(TAG, "Performing search ");
-            double[] loc = new double[2];
-
-            if (location == null) {
-                // Default to MSL @UFL
-                loc[0] = 29.6481041;
-                loc[1] = -82.3462533;
-            } else {
-                loc[0] = location.getLatitude();
-                loc[1] = location.getLongitude();
-            }
             Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
 
             LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
                 @Override
                 public void processFinish(List<Restaurant> output) {
-                    for (Restaurant p : output) {
-                        Log.e(TAG, p.toString());
-                    }
                     Log.e(TAG, "Search performed");
+                    for (Restaurant p : output) {
+                        res.add(p);
+                    }
+
+                    findViewById(R.id.progressBarRestaurantSearch).setVisibility(View.GONE);
+                    findViewById(R.id.restaurantList).setVisibility(View.VISIBLE);
+                    ListAdapter restaurantAdapter = new RestaurantAdapter();
+                    ListView restaurantListView = (ListView) findViewById(R.id.restaurantList);
+                    restaurantListView.setAdapter(restaurantAdapter);
+                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Restaurant selectedRestaurantGui = res.get(position);
+                            String selectedRestaurant = selectedRestaurantGui.getName();
+                            Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
+                            i.putExtra(Constants.name, selectedRestaurant);
+                            i.putExtra(Constants.vicinity, selectedRestaurant);
+                            try {
+                                i.putExtra("asd", selectedRestaurantGui.toPrettyString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            startActivity(i);
+                            setContentView(R.layout.activity_user_view_menu_screen);
+                        }
+                    });
+
                 }
             }).execute(loc);
-
-        } else {
-            Log.e(TAG, "Location not found");
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        List restaurantLista = populateList();
-
-        //ListAdapter restaurantAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,restaurantList);
-        ListAdapter restaurantAdapter = new RestaurantAdapter();
-        ListView restaurantListGui = (ListView) findViewById(R.id.restaurantList);
-        restaurantListGui.setAdapter(restaurantAdapter);
-
-        restaurantListGui.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RestaurantGui selectedRestaurantGui = restaurants.get(position);
-                String selectedRestaurant = selectedRestaurantGui.getRestaurantName();
-                Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_LONG).show();
-
-                Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
-                i.putExtra("restarantName", selectedRestaurant);
-                i.putExtra("RestaurantIcon", selectedRestaurantGui.getRestaurantIconId());
-                startActivity(i);
-                setContentView(R.layout.activity_user_view_menu_screen);
-            }
-        });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -128,31 +117,43 @@ public class UserHome extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private Location getLastBestLocation() {
+    private double[] getLastBestLocation() {
+        double[] loc = new double[2];
         LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Location l = null;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e(TAG, "Enable location permission!!!!");
             return null;
-        }
-        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        long GPSLocationTime = 0;
-        if (null != locationGPS) {
-            GPSLocationTime = locationGPS.getTime();
-        }
-
-        long NetLocationTime = 0;
-
-        if (null != locationNet) {
-            NetLocationTime = locationNet.getTime();
-        }
-
-        if (0 < GPSLocationTime - NetLocationTime) {
-            return locationGPS;
         } else {
-            return locationNet;
+            Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            long GPSLocationTime = 0;
+            if (null != locationGPS) {
+                GPSLocationTime = locationGPS.getTime();
+            }
+
+            long NetLocationTime = 0;
+
+            if (null != locationNet) {
+                NetLocationTime = locationNet.getTime();
+            }
+            if (0 < GPSLocationTime - NetLocationTime) {
+                l = locationGPS;
+            } else {
+                l = locationNet;
+            }
         }
+
+        if (l == null) {
+            // Default to MSL @UFL
+            loc[0] = 29.6481041;
+            loc[1] = -82.3462533;
+        } else {
+            loc[0] = l.getLatitude();
+            loc[1] = l.getLongitude();
+        }
+        return loc;
     }
 
     @Override
@@ -206,17 +207,6 @@ public class UserHome extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    private List<RestaurantGui> populateList() {
-        restaurants.add(new RestaurantGui("BoneFish", R.drawable.bonefish));
-        restaurants.add(new RestaurantGui("BigBurger", R.drawable.bigburger));
-        restaurants.add(new RestaurantGui("Chipotle", R.drawable.chipotle));
-        restaurants.add(new RestaurantGui("McDonalds", R.drawable.mcdonalds));
-        restaurants.add(new RestaurantGui("Publix", R.drawable.publix));
-        restaurants.add(new RestaurantGui("Subway", R.drawable.subway));
-        return restaurants;
     }
 
     @Override
@@ -277,10 +267,10 @@ public class UserHome extends AppCompatActivity
     }
 
 
-    private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
+    private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
         public RestaurantAdapter() {
-            super(UserHome.this, R.layout.restaurant_list_view, restaurants);
+            super(UserHome.this, R.layout.restaurant_list_view, res);
         }
 
         @Override
@@ -290,18 +280,21 @@ public class UserHome extends AppCompatActivity
             if (thisView == null) {
                 thisView = getLayoutInflater().inflate(R.layout.restaurant_list_view, parent, false);
             }
+            Restaurant r = res.get(position);
+            TextView resName = ((TextView) thisView.findViewById(R.id.restaurantName));
+            resName.setText(r.getName());
+            String rating = "NA";
+            String priceLevel = "NA";
+            if (r.getRating() != null && !r.getRating().isEmpty())
+                rating = r.getRating();
+            if (r.getPriceLevel() != null && !r.getPriceLevel().isEmpty())
+                priceLevel = r.getPriceLevel();
 
-            RestaurantGui selectedRestaurant = restaurants.get(position);
 
-            ImageView restaurantImageView = (ImageView) thisView.findViewById(R.id.restaurantIcon);
-            restaurantImageView.setImageResource(selectedRestaurant.getRestaurantIconId());
-
-            TextView restaurantNameTextView = (TextView) thisView.findViewById(R.id.restaurantName);
-            restaurantNameTextView.setText(selectedRestaurant.getRestaurantName());
+            ((TextView) thisView.findViewById(R.id.restaurantPriceLevel)).setText("PriceLevel : " + priceLevel);
+            ((TextView) thisView.findViewById(R.id.restaurantRating)).setText("Rating : " + rating);
+            ((TextView) thisView.findViewById(R.id.restaurantVicinity)).setText(r.getVicinity());
             return thisView;
         }
-
     }
-
-
 }
