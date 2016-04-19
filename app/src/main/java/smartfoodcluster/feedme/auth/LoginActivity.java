@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -24,7 +25,7 @@ import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.qrcode.QRCodeScanner;
-import smartfoodcluster.feedme.restaurateur.RestaurateurHome;
+import smartfoodcluster.feedme.restaurant.RestaurantHome;
 import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
@@ -116,10 +117,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         } else {
-            Intent i = new Intent(getApplicationContext(), RestaurateurHome.class);
+            Intent i = new Intent(getApplicationContext(), RestaurantHome.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_restaurateur_home);
+            setContentView(R.layout.activity_restaurant_home);
         }
     }
 

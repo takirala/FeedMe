@@ -26,16 +26,11 @@
     <string name="title_activity_user_review_order">User Review Order</string>
     <string name="title_activity_user_payment">User Payment</string>
     <string name="title_activity_order_detail">Order Detail</string>
-    <string name="title_activity_restaurateur_home">Restaurateur Home</string>
-    <string name="title_activity_user_map_view">Map</string>
-    <string name="section_format">%1$d</string>
+    <string name="title_activity_restaurateur_home">Restaurant Home</string>
     <string name="title_activity_user_restaurant_finder">UserRestaurantFinder</string>
     <string name="large_text"></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_section_1">New</string>
-    <string name="title_section_2">Processed</string>
-    <string name="title_section_3">Completed</string>
     <string name="title_activity_shopping_cart_screen">Check Out</string>
     <string name="title_activity_user_view_menu_screen">Restaurant Home</string>
 
@@ -54,5 +49,6 @@
     <string name="stop_updates">Stop updates</string>
     <string name="location_updated_message">Location updated</string>
     <string name="title_activity_qrcode_scanner">QR Code Scanner</string>
+    <string name="title_activity_restaurant_home">RestaurantHome</string>
 
 </resources>
