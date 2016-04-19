@@ -56,8 +56,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:background="@drawable/payment_button"
+        android:onClick="makePayment"
         android:text="Make Payment >>"
         android:textAlignment="center"
         android:textAppearance="@android:color/white" />
+    <!--android:background="@drawable/payment_button"-->
 </LinearLayout>

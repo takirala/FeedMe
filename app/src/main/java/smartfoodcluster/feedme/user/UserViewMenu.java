@@ -27,12 +27,13 @@ import java.util.List;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.RestaurantGui;
+import smartfoodcluster.feedme.util.Constants;
 
 public class UserViewMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    List<RestaurantGui> restaurants=new ArrayList<RestaurantGui>();
-    HashMap<String,Integer> orderedItemMap = new HashMap<String,Integer>();
+    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+    HashMap<String, Integer> orderedItemMap = new HashMap<String, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class UserViewMenu extends AppCompatActivity
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String restaurantName = extras.getString("restarantName");
+            String restaurantName = extras.getString("restaurantName");
             ((TextView) findViewById(R.id.RestaurantDescriptionGui)).setText(restaurantName);
             ((ImageView) findViewById(R.id.restaurantImage)).setImageResource(extras.getInt("RestaurantIcon"));
 
@@ -78,12 +79,14 @@ public class UserViewMenu extends AppCompatActivity
             ((ListView) findViewById(R.id.menuListGui)).setAdapter(menuAdapter);*/
         }
 
-        Button checkoutButton = (Button)findViewById(R.id.checkoutButtonGui);
+        Button checkoutButton = (Button) findViewById(R.id.checkoutButtonGui);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ShoppingCart.class);
                 i.putExtra("orderedItemMap", orderedItemMap);
+                i.putExtra(Constants.placeId, "abc123");
+                i.putExtra(Constants.emailId, "tarugupta.92@gmail.com");
                 startActivity(i);
                 setContentView(R.layout.activity_shopping_cart_screen);
                /* ArrayList<String> orderedList=new ArrayList<String>();
@@ -102,10 +105,7 @@ public class UserViewMenu extends AppCompatActivity
         });
     }
 
-
-    private List<RestaurantGui> populateList(){
-
-
+    private List<RestaurantGui> populateList() {
         restaurants.add(new RestaurantGui("Chicken Nuggets", R.drawable.bonefish));
         restaurants.add(new RestaurantGui("Chicken Burger", R.drawable.bigburger));
         restaurants.add(new RestaurantGui("Chicken Sandwitch", R.drawable.chipotle));
@@ -118,41 +118,39 @@ public class UserViewMenu extends AppCompatActivity
 
     private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
 
-        public RestaurantAdapter(){
-            super(UserViewMenu.this,R.layout.restaurant_list_view,restaurants);
+        public RestaurantAdapter() {
+            super(UserViewMenu.this, R.layout.restaurant_list_view, restaurants);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
             View thisView = convertView;
-            if(thisView==null){
-                thisView=getLayoutInflater().inflate(R.layout.restaurant_menu_list_view,parent,false);
+            if (thisView == null) {
+                thisView = getLayoutInflater().inflate(R.layout.restaurant_menu_list_view, parent, false);
             }
 
             final RestaurantGui selectedRestaurant = restaurants.get(position);
 
 
-
-            TextView restaurantMenuItemTextView=(TextView)thisView.findViewById(R.id.menuItemText);
+            TextView restaurantMenuItemTextView = (TextView) thisView.findViewById(R.id.menuItemText);
             restaurantMenuItemTextView.setText(selectedRestaurant.getRestaurantName());
-            final TextView countTextView = (TextView)thisView.findViewById(R.id.menuItemCount);
+            final TextView countTextView = (TextView) thisView.findViewById(R.id.menuItemCount);
 
-            Button addItemButtonView = (Button)thisView.findViewById(R.id.addItemButton);
+            Button addItemButtonView = (Button) thisView.findViewById(R.id.addItemButton);
             addItemButtonView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
-                    String presentCount = (String)countTextView.getText();
+                public void onClick(View view) {
+                    String presentCount = (String) countTextView.getText();
 
-                    if(presentCount.equals("")){
+                    if (presentCount.equals("")) {
                         System.out.println(presentCount);
                         countTextView.setText(new String("1"));
-                    }
-                    else{
-                        Integer count = Integer.valueOf(presentCount)+1;
+                    } else {
+                        Integer count = Integer.valueOf(presentCount) + 1;
                         countTextView.setText(count.toString());
                     }
-                    orderedItemMap.put(selectedRestaurant.getRestaurantName(),Integer.valueOf(countTextView.getText().toString()));
+                    orderedItemMap.put(selectedRestaurant.getRestaurantName(), Integer.valueOf(countTextView.getText().toString()));
                 }
             });
 

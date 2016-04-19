@@ -13,8 +13,17 @@ import java.util.Date;
 public class Order {
     @Id
     Long id;
-    String status;
+    String orderUUID;
+    int status;
     Float totalAmount;
+
+    public String getOrderUUID() {
+        return orderUUID;
+    }
+
+    public void setOrderUUID(String orderUUID) {
+        this.orderUUID = orderUUID;
+    }
 
     public Long getId() {
         return id;
@@ -24,11 +33,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
