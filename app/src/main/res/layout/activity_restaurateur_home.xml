@@ -8,10 +8,10 @@
     android:fitsSystemWindows="true"
     tools:context="smartfoodcluster.feedme.restaurateur.RestaurateurHome">
 
-    <include
-        layout="@layout/app_bar_restarateur_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<include-->
+        <!--layout="@layout/app_bar_restarateur_home"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

@@ -20,18 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
-
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Place;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +48,7 @@ public class UserHome extends AppCompatActivity
     /**
      * Represents a geographical location.
      */
+
     protected Location mLastLocation;
 
     protected Double mLatitudeText;
@@ -63,48 +60,44 @@ public class UserHome extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user_selection);
+        setContentView(R.layout.activity_user_home);
 
         double[] loc = getLastBestLocation();
-        if (res.size() == 0) {
-            Log.e(TAG, "Performing search ");
-            Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
+        Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
 
-            LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
-                @Override
-                public void processFinish(List<Restaurant> output) {
-                    Log.e(TAG, "Search performed");
-                    for (Restaurant p : output) {
-                        res.add(p);
-                    }
-
-                    findViewById(R.id.progressBarRestaurantSearch).setVisibility(View.GONE);
-                    findViewById(R.id.restaurantList).setVisibility(View.VISIBLE);
-                    ListAdapter restaurantAdapter = new RestaurantAdapter();
-                    ListView restaurantListView = (ListView) findViewById(R.id.restaurantList);
-                    restaurantListView.setAdapter(restaurantAdapter);
-                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Restaurant selectedRestaurantGui = res.get(position);
-                            String selectedRestaurant = selectedRestaurantGui.getName();
-                            Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
-                            i.putExtra(Constants.name, selectedRestaurant);
-                            i.putExtra(Constants.vicinity, selectedRestaurant);
-                            try {
-                                i.putExtra("asd", selectedRestaurantGui.toPrettyString());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            startActivity(i);
-                            setContentView(R.layout.activity_user_view_menu_screen);
-                        }
-                    });
-
+        LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
+            @Override
+            public void processFinish(List<Restaurant> output) {
+                Log.e(TAG, "Search performed");
+                for (Restaurant p : output) {
+                    res.add(p);
                 }
-            }).execute(loc);
-        }
+                findViewById(R.id.progressBarRestaurantSearch).setVisibility(View.GONE);
+                findViewById(R.id.restaurantList).setVisibility(View.VISIBLE);
+                ListAdapter restaurantAdapter = new RestaurantAdapter();
+                ListView restaurantListView = (ListView) findViewById(R.id.restaurantList);
+                restaurantListView.setAdapter(restaurantAdapter);
+                restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Restaurant r = res.get(position);
+                        String selectedRestaurant = r.getName();
+                        Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
+                        i.putExtra(Constants.name, selectedRestaurant);
+                        try {
+                            i.putExtra(Constants.resObject, r.toPrettyString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        i.putExtras(getIntent());
+                        startActivity(i);
+                        setContentView(R.layout.activity_user_view_menu);
+                    }
+                });
+            }
+        }).execute(loc);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -195,14 +188,9 @@ public class UserHome extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_orders) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_logout) {
 
         }
 

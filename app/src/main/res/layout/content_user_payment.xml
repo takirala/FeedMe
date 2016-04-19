@@ -12,4 +12,6 @@
     tools:context="smartfoodcluster.feedme.user.UserPayment"
     tools:showIn="@layout/activity_user_payment">
 
+
+
 </RelativeLayout>

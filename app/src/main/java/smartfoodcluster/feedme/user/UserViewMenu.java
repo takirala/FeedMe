@@ -2,8 +2,7 @@ package smartfoodcluster.feedme.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,30 +25,34 @@ import java.util.HashMap;
 import java.util.List;
 
 import smartfoodcluster.feedme.R;
-import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.util.Constants;
 
-public class UserViewMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class UserViewMenu extends BaseActivity {
 
-    List<RestaurantGui> restaurants = new ArrayList<RestaurantGui>();
+    private static final String TAG = "UserViewMenu";
+    static List<String> menu = new ArrayList<String>();
     HashMap<String, Integer> orderedItemMap = new HashMap<String, Integer>();
+
+    static {
+        menu.add("Fancy Item 1");
+        menu.add("Spicy Item 2");
+        menu.add("Cool Item 3");
+        menu.add("Cruncy Item 4");
+        menu.add("Sizzling Item 5");
+        menu.add("Fiery Item 6");
+        menu.add("Exotic Dish 7");
+        menu.add("Cruncy Item 8");
+        menu.add("Sizzling Item 9");
+        menu.add("Fiery Item 10");
+        menu.add("Exotic Dish 11");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_view_menu_screen);
+        setContentView(R.layout.activity_user_view_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,64 +65,34 @@ public class UserViewMenu extends AppCompatActivity
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String restaurantName = extras.getString("restaurantName");
+            if (extras.get("resObject") != null) {
+                Log.e(TAG, extras.getSerializable("resObject").toString());
+            }
+            String restaurantName = extras.getString(Constants.name);
             ((TextView) findViewById(R.id.RestaurantDescriptionGui)).setText(restaurantName);
-            ((ImageView) findViewById(R.id.restaurantImage)).setImageResource(extras.getInt("RestaurantIcon"));
+            ((ImageView) findViewById(R.id.restaurantImage)).setImageResource(0);
 
-            List restaurantList = populateList();
-
-            //ListAdapter restaurantAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,restaurantList);
-            ListAdapter restaurantAdapter = new RestaurantAdapter();
-            ListView restaurantListGui = (ListView) findViewById(R.id.menuItemsGui);
-            restaurantListGui.setAdapter(restaurantAdapter);
-
-          /*  String[] menu = {restaurantName+" Sushi 65",restaurantName+" Tandoori Tandeloin",restaurantName+" Eat and Die",restaurantName+" Wings",
-                    restaurantName+" Dosa",restaurantName+" Idli"};
-            ListAdapter menuAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menu);
-            ((ListView) findViewById(R.id.menuListGui)).setAdapter(menuAdapter);*/
+            ListAdapter menuListAdapter = new RestaurantAdapter();
+            ListView menuList = (ListView) findViewById(R.id.menuItemsGui);
+            menuList.setAdapter(menuListAdapter);
         }
-
         Button checkoutButton = (Button) findViewById(R.id.checkoutButtonGui);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ShoppingCart.class);
                 i.putExtra("orderedItemMap", orderedItemMap);
-                i.putExtra(Constants.placeId, "abc123");
-                i.putExtra(Constants.emailId, "tarugupta.92@gmail.com");
+                i.putExtras(getIntent());
                 startActivity(i);
-                setContentView(R.layout.activity_shopping_cart_screen);
-               /* ArrayList<String> orderedList=new ArrayList<String>();
-                ListView orderedItemView = (ListView)findViewById(R.id.menuItemsGui);
-                ListAdapter menuItemsAdapter = orderedItemView.getAdapter();
-                for(int i=0;i<menuItemsAdapter.getCount();i++){
-                      View item = (View)menuItemsAdapter.getItem(i);
-                   // ViewParent parent = item.getParent();
-                    //thisView=getLayoutInflater().inflate(R.layout.restaurant_menu_list_view, parent, false);
-                    View thisView=getLayoutInflater().inflate(R.layout.restaurant_menu_list_view,null);
-                    CharSequence count = ((TextView)thisView.findViewById(R.id.menuItemCount)).getText();
-
-                }*/
-
+                setContentView(R.layout.activity_user_shopping_cart);
             }
         });
     }
 
-    private List<RestaurantGui> populateList() {
-        restaurants.add(new RestaurantGui("Chicken Nuggets", R.drawable.bonefish));
-        restaurants.add(new RestaurantGui("Chicken Burger", R.drawable.bigburger));
-        restaurants.add(new RestaurantGui("Chicken Sandwitch", R.drawable.chipotle));
-        restaurants.add(new RestaurantGui("Chicken Pizza", R.drawable.mcdonalds));
-        restaurants.add(new RestaurantGui("Chicken Noodles", R.drawable.publix));
-        restaurants.add(new RestaurantGui("Chicken Ramoon", R.drawable.subway));
-        return restaurants;
-    }
-
-
-    private class RestaurantAdapter extends ArrayAdapter<RestaurantGui> {
+    private class RestaurantAdapter extends ArrayAdapter<String> {
 
         public RestaurantAdapter() {
-            super(UserViewMenu.this, R.layout.restaurant_list_view, restaurants);
+            super(UserViewMenu.this, R.layout.restaurant_list_view, menu);
         }
 
         @Override
@@ -130,11 +103,10 @@ public class UserViewMenu extends AppCompatActivity
                 thisView = getLayoutInflater().inflate(R.layout.restaurant_menu_list_view, parent, false);
             }
 
-            final RestaurantGui selectedRestaurant = restaurants.get(position);
-
+            final String selectedRestaurant = menu.get(position);
 
             TextView restaurantMenuItemTextView = (TextView) thisView.findViewById(R.id.menuItemText);
-            restaurantMenuItemTextView.setText(selectedRestaurant.getRestaurantName());
+            restaurantMenuItemTextView.setText(selectedRestaurant);
             final TextView countTextView = (TextView) thisView.findViewById(R.id.menuItemCount);
 
             Button addItemButtonView = (Button) thisView.findViewById(R.id.addItemButton);
@@ -142,15 +114,26 @@ public class UserViewMenu extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     String presentCount = (String) countTextView.getText();
+                    Integer count = Integer.valueOf(presentCount) + 1;
+                    countTextView.setText(count.toString());
+                    orderedItemMap.put(selectedRestaurant, count);
+                }
+            });
 
-                    if (presentCount.equals("")) {
-                        System.out.println(presentCount);
-                        countTextView.setText(new String("1"));
-                    } else {
-                        Integer count = Integer.valueOf(presentCount) + 1;
+            Button removeItemButtonView = (Button) thisView.findViewById(R.id.removeItemButton);
+            removeItemButtonView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String presentCount = (String) countTextView.getText();
+                    Integer presentCountInt = Integer.valueOf(presentCount);
+                    if (presentCountInt > 0) {
+                        Integer count = presentCountInt - 1;
                         countTextView.setText(count.toString());
+                        if (count > 0)
+                            orderedItemMap.put(selectedRestaurant, count);
+                        else
+                            orderedItemMap.remove(selectedRestaurant);
                     }
-                    orderedItemMap.put(selectedRestaurant.getRestaurantName(), Integer.valueOf(countTextView.getText().toString()));
                 }
             });
 
@@ -167,52 +150,5 @@ public class UserViewMenu extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_view_menu_screen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

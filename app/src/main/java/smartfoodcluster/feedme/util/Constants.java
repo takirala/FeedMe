@@ -1,5 +1,8 @@
 package smartfoodcluster.feedme.util;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 /**
  * Created by Lavenger on 4/14/2016.
  */
@@ -14,6 +17,7 @@ public class Constants {
     public static String placeId = "placeId";
     public static String vicinity = "vicinity";
     public static String name = "name";
+    public static String resObject = "resObject";
     public static String showSuccess = "showSuccess";
     public static String userRole = "userRole";
     public static String userAuthenticated = "userAuthenticated";

@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/menuItemText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/menuItemCount"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/costOfItemGui"
-        android:layout_marginRight="15dp"
-        android:autoText="false"
-        android:textAlignment="center" />
+        android:layout_gravity="center"
+        android:layout_weight="0.6"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
         android:id="@+id/addItemButton"
-        android:layout_alignBottom="@+id/menuItemText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.2"
+        android:text="+"
         android:textAlignment="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/menuItemCount"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="center"
+        android:layout_weight="0.2"
+        android:autoText="false"
+        android:text="0"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/removeItemButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.2"
+        android:text="-"
+        android:textAlignment="center" />
+
+    <TextView
         android:id="@+id/costOfItemGui"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.2"
         android:text="45"
-        android:layout_alignBottom="@+id/menuItemCount"
-        android:layout_toStartOf="@+id/addItemButton" />
-</RelativeLayout>
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+</LinearLayout>
