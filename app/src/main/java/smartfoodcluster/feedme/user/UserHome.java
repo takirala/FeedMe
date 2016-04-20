@@ -11,11 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,19 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import smartfoodcluster.feedme.dao.RestaurantGui;
-import smartfoodcluster.feedme.util.Constants;
-
 import smartfoodcluster.feedme.R;
-
+import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.handlers.LocationHandler;
+import smartfoodcluster.feedme.util.Constants;
 
 public class UserHome extends BaseActivity {
 
@@ -117,7 +110,7 @@ public class UserHome extends BaseActivity {
         Location l = null;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e(TAG, "Enable location permission!!!!");
-            return null;
+            l = null;
         } else {
             Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -185,7 +178,7 @@ public class UserHome extends BaseActivity {
             }
             Restaurant r = res.get(position);
             TextView resName = ((TextView) thisView.findViewById(R.id.restaurantName));
-            resName.setText(r.getName());
+            resName.setText(r.getName().replace("\"", ""));
             String rating = "NA";
             String priceLevel = "NA";
             if (r.getRating() != null && !r.getRating().isEmpty())
@@ -194,9 +187,9 @@ public class UserHome extends BaseActivity {
                 priceLevel = r.getPriceLevel();
 
 
-            ((TextView) thisView.findViewById(R.id.restaurantPriceLevel)).setText("PriceLevel : " + priceLevel);
-            ((TextView) thisView.findViewById(R.id.restaurantRating)).setText("Rating : " + rating);
-            ((TextView) thisView.findViewById(R.id.restaurantVicinity)).setText(r.getVicinity());
+            ((TextView) thisView.findViewById(R.id.restaurantPriceLevel)).setText(("PriceLevel : " + priceLevel).replace("\"", ""));
+            ((TextView) thisView.findViewById(R.id.restaurantRating)).setText(("Rating : " + rating).replace("\"", ""));
+            ((TextView) thisView.findViewById(R.id.restaurantVicinity)).setText((r.getVicinity()).replace("\"", ""));
             return thisView;
         }
     }

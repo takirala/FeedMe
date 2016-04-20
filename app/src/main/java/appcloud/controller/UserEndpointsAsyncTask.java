@@ -6,8 +6,6 @@ import android.widget.Toast;
 
 import com.appspot.myapplicationid.userEndpoint.UserEndpoint;
 import com.appspot.myapplicationid.userEndpoint.model.User;
-import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -16,6 +14,9 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+//import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
+//import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 
 class UserEndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
     private static UserEndpoint myApiService = null;

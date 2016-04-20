@@ -3,9 +3,6 @@ package smartfoodcluster.feedme.handlers;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
-
-import java.util.List;
 import java.util.UUID;
 
 /**

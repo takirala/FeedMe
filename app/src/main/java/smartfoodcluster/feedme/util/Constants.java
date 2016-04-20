@@ -1,11 +1,5 @@
 package smartfoodcluster.feedme.util;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created by Lavenger on 4/14/2016.
  */
@@ -16,6 +10,7 @@ public class Constants {
     public static final boolean adminMode = false;
 
     public static final String gUserInfo = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
+    public static final String url = "http://10.0.2.2:8080/_ah/api/";
     public static String emailId = "email_id";
     public static String placeId = "placeId";
     public static String vicinity = "vicinity";
@@ -34,6 +29,9 @@ public class Constants {
     public static final int NEW = 0;
     public static final int PROCESSING = -1;
     public static final int COMPLETED = 1;
+
+    public static final Integer REGISTER = 1;
+    public static final Integer LIST = 2;
 
     public static class UserRole {
         public static final boolean USER = true;

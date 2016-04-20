@@ -1,6 +1,5 @@
 package smartfoodcluster.feedme.entities;
 
-import com.google.appengine.repackaged.com.google.common.base.Flag;
 import com.googlecode.objectify.annotation.Container;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -18,9 +17,21 @@ public class Order {
     String orderUUID;
     int status;
     Float totalAmount;
+    String restaurantPlaceId;
+    Date orderDate;
+    @Container
+    HashMap<String, Integer> orderDetails;
 
     public String getOrderUUID() {
         return orderUUID;
+    }
+
+    public String getRestaurantPlaceId() {
+        return restaurantPlaceId;
+    }
+
+    public void setRestaurantPlaceId(String restaurantPlaceId) {
+        this.restaurantPlaceId = restaurantPlaceId;
     }
 
     public void setOrderUUID(String orderUUID) {
@@ -67,7 +78,4 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    Date orderDate;
-    @Container
-    HashMap<String, Integer> orderDetails;
 }

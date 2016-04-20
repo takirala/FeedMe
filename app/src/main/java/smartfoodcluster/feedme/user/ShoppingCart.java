@@ -3,48 +3,39 @@ package smartfoodcluster.feedme.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.JsonMap;
-import com.appspot.myapplicationid.restaurantEndpoint.model.Order;
-//import com.appspot.myapplicationid.;
-
+import com.appspot.myapplicationid.orderEndpoint.model.JsonMap;
+import com.appspot.myapplicationid.orderEndpoint.model.Order;
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.json.GenericJson;
-import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.appengine.repackaged.com.google.gson.Gson;
-import com.google.appengine.repackaged.com.google.gson.stream.JsonReader;
 
-import org.json.JSONObject;
-
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import appcloud.controller.AddOrderAsyncTask;
+import appcloud.controller.ListOrdersTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.ShoppingCartDao;
 import smartfoodcluster.feedme.util.Constants;
+
+//import com.appspot.myapplicationid.;
 
 public class ShoppingCart extends BaseActivity {
 
@@ -85,28 +76,16 @@ public class ShoppingCart extends BaseActivity {
                 public void onClick(View v) {
                     String resStr = (String) extras.get(Constants.resObject);
                     Log.e(TAG, "###" + resStr);
-                    JsonFactory factory = new AndroidJsonFactory();
 
+                    Restaurant r = null;
                     try {
-                        JSONObject jsonObject = new JSONObject(resStr.trim());
-                        Restaurant r1 = factory.fromString(resStr.trim(), Restaurant.class);
-                        Log.e(TAG, "" + r1);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        Gson gson = new Gson();
-                        JsonReader reader = new JsonReader(new StringReader(resStr.trim()));
-                        reader.setLenient(true);
-                        Restaurant r = gson.fromJson(reader, Restaurant.class);
+                        JsonFactory factory = new AndroidJsonFactory();
+                        //JSONObject jsonObject = new JSONObject(resStr.trim());
+                        r = factory.fromString(resStr.trim(), Restaurant.class);
                         Log.e(TAG, "" + r);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    Restaurant r = (Restaurant) extras.get(Constants.resObject);
-                    Log.e(TAG, ">>>" + r);
 
                     Order order = new Order();
                     order.setOrderUUID(UUID.randomUUID().toString());
@@ -114,15 +93,17 @@ public class ShoppingCart extends BaseActivity {
                     order.setOrderDate(dateTime);
                     order.setStatus(Constants.NEW);
                     order.setTotalAmount(totalBill);
-
                     orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable(Constants.orderedItemMap);
-                    //order.setOrderDetails(getIntent().getStringExtra(UUID.randomUUID().toString()));
                     JsonMap map = new JsonMap();
                     for (String key : orderedItemsMap.keySet()) {
                         map.put(key, orderedItemsMap.get(key));
                     }
                     order.setOrderDetails(map);
 
+                    saveToCloud(r, order);
+                    saveToCloud(r, order);
+                    saveToCloud(r, order);
+                    listOrders();
                     Intent i = new Intent(getApplicationContext(), UserPayment.class);
                     i.putExtras(getIntent());
                     startActivity(i);
@@ -130,6 +111,17 @@ public class ShoppingCart extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void saveToCloud(Restaurant restaurant, Order order) {
+        AddOrderAsyncTask task = new AddOrderAsyncTask(getApplicationContext());
+        order.setRestaurantPlaceId(restaurant.getPlaceId());
+        task.execute(order);
+    }
+
+    private void listOrders() {
+        ListOrdersTask task = new ListOrdersTask(getApplicationContext());
+        task.execute("a");
     }
 
     @Override

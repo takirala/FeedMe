@@ -1,3 +1,4 @@
+/*
 package appcloud.controller;
 
 import android.content.Context;
@@ -15,9 +16,11 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+*/
 /**
  * Created by Srinivas on 4/17/2016.
- */
+ *//*
+
 public class RestaurantEndpointsAsyncTask extends AsyncTask<Void, Void, List<Restaurant>> {
     private static RestaurantEndpoint myApiService = null;
     private Context context;
@@ -59,4 +62,4 @@ public class RestaurantEndpointsAsyncTask extends AsyncTask<Void, Void, List<Res
             Toast.makeText(context, q.getEmail() + " : " + q.getName(), Toast.LENGTH_LONG).show();
         }
     }
-}
+}*/

@@ -6,8 +6,9 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>
-                smartfoodcluster.feedme.backend.UserEndpoint,smartfoodcluster.feedme.backend.RestaurantEndpoint,
-                smartfoodcluster.feedme.backend.OrderEndpoint
+                smartfoodcluster.feedme.backend.UserEndpoint,
+                smartfoodcluster.feedme.backend.OrderEndpoint,
+                smartfoodcluster.feedme.backend.RestaurantEndpoint
             </param-value>
 
         </init-param>

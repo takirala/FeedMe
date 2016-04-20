@@ -12,15 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.auth.LoginActivity;
-import smartfoodcluster.feedme.qrcode.QRCodeScanner;
 import smartfoodcluster.feedme.util.Constants;
 
 /**

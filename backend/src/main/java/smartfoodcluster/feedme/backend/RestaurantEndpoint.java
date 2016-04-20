@@ -18,21 +18,13 @@ import smartfoodcluster.feedme.entities.Restaurant;
 
 import static smartfoodcluster.feedme.util.OfyService.ofy;
 
-/**
- * Created by Srinivas on 4/16/2016.
- */
 
 @Api(name = "restaurantEndpoint")
 public class RestaurantEndpoint {
     public RestaurantEndpoint() {
     }
 
-    /**
-     * This inserts a new <code>User</code> object.
-     *
-     * @param restaurant The object to be added.
-     * @return The object to be added.
-     */
+
     @ApiMethod(name = "registerRestaurant")
     public Restaurant registerRestaurant(Restaurant restaurant) throws ConflictException {
         //If if is not null, then check if it exists. If yes, throw an Exception
@@ -48,12 +40,7 @@ public class RestaurantEndpoint {
         return restaurant;
     }
 
-    /**
-     * This updates an existing <code>Restaurant</code> object.
-     *
-     * @param restaurant The object to be added.
-     * @return The object to be updated.
-     */
+
     @ApiMethod(name = "updateRestaurant")
     public Restaurant updateRestaurant(Restaurant restaurant) throws NotFoundException {
         if (findRecord(restaurant.getId()) == null) {
@@ -63,11 +50,7 @@ public class RestaurantEndpoint {
         return restaurant;
     }
 
-    /**
-     * This deletes an existing <code>Restaurant</code> object.
-     *
-     * @param id The id of the object to be deleted.
-     */
+
     @ApiMethod(name = "removeRestaurant")
     public void removeRestaurant(@Named("id") Long id) throws NotFoundException {
         Restaurant record = findRecord(id);
@@ -79,7 +62,7 @@ public class RestaurantEndpoint {
 
     @ApiMethod(name = "listRestaurants")
     public CollectionResponse<Restaurant> listRestaurants(@Nullable @Named("cursor") String cursorString,
-                                                                 @Nullable @Named("count") Integer count) {
+                                                          @Nullable @Named("count") Integer count) {
 
         Query<Restaurant> query = ofy().load().type(Restaurant.class);
         if (count != null) query.limit(count);

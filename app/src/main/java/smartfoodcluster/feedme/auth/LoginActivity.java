@@ -15,12 +15,10 @@ import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.SignInButton;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
-//import appcloud.controller.EndpointsAsyncTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
@@ -28,6 +26,9 @@ import smartfoodcluster.feedme.qrcode.QRCodeScanner;
 import smartfoodcluster.feedme.restaurant.RestaurantHome;
 import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
+
+//import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
+//import appcloud.controller.EndpointsAsyncTask;
 
 /**
  * A login screen that offers login via Google account

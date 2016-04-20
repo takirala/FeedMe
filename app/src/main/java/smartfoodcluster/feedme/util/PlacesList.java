@@ -4,11 +4,11 @@ package smartfoodcluster.feedme.util;
  * Created by Lavenger on 4/16/2016.
  */
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.google.android.gms.location.places.Place;
 import com.google.api.client.util.Key;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Implement this class from "Serializable"

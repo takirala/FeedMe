@@ -46,6 +46,10 @@ public class OrderEndpoint {
                                                 @Nullable @Named("count") Integer count) {
 
         Query<Order> query = ofy().load().type(Order.class);
+//        if (orderId != null) {
+//            query = ofy().load().type(Order.class).filter("orderUUID", orderId);
+//        }
+
         if (count != null) query.limit(count);
         if (cursorString != null && cursorString != "") {
             query = query.startAt(Cursor.fromWebSafeString(cursorString));
@@ -69,6 +73,8 @@ public class OrderEndpoint {
                 cursorString = cursor.toWebSafeString();
             }
         }
+
         return CollectionResponse.<Order>builder().setItems(records).setNextPageToken(cursorString).build();
     }
+
 }

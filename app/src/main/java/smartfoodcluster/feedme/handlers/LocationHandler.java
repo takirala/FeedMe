@@ -1,22 +1,19 @@
 package smartfoodcluster.feedme.handlers;
 
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.android.gms.location.places.Place;
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,9 +21,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-import smartfoodcluster.feedme.util.PlacesList;
 
 /**
  * Created by Lavenger on 4/16/2016.

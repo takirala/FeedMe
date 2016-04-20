@@ -3,7 +3,6 @@ package smartfoodcluster.feedme.util;
 import com.googlecode.objectify.annotation.Container;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Stringify;
 
 import java.util.Date;
 

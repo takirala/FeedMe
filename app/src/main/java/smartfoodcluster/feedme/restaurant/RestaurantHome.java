@@ -2,10 +2,9 @@ package smartfoodcluster.feedme.restaurant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,25 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Vector;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.OrderView;
-import smartfoodcluster.feedme.dao.RestaurantGui;
 import smartfoodcluster.feedme.fragments.NewOrdersFragment;
 import smartfoodcluster.feedme.fragments.TabFragment;
-import smartfoodcluster.feedme.user.UserHome;
 
 public class RestaurantHome extends AppCompatActivity {
 
@@ -62,29 +54,7 @@ public class RestaurantHome extends AppCompatActivity {
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
 
-        List<OrderView> orderList = new ArrayList<OrderView>();
 
-        orderList.add(new OrderView(123L, "123"));
-        orderList.add(new OrderView(122L, "113"));
-
-        ListAdapter orderAdapter = new OrderAdapter();
-        ListView orderListView = (ListView) findViewById(R.id.neworderlist);
-        orderListView.setAdapter(orderAdapter);
-
-        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OrderView selectedOrderView = orders.get(position);
-                Long selectedOrder = selectedOrderView.getOrderId();
-                Toast.makeText(RestaurantHome.this, selectedOrder.toString(), Toast.LENGTH_LONG).show();
-
-                Intent i = new Intent(getApplicationContext(), OrderView.class);
-                i.putExtra("orderId", selectedOrder);
-                i.putExtra("orderTime", selectedOrderView.getOrderTime());
-                startActivity(i);
-                setContentView(R.layout.activity_order_view);
-            }
-        });
 
         /**
          * Setup click events on the Navigation View Items.
@@ -110,6 +80,30 @@ public class RestaurantHome extends AppCompatActivity {
                 return false;
             }
 
+        });
+
+        List<OrderView> orderList = new ArrayList<OrderView>();
+
+        orderList.add(new OrderView(123L, "123"));
+        orderList.add(new OrderView(122L, "113"));
+
+        ListAdapter orderAdapter = new OrderAdapter();
+        ListView orderListView = (ListView) findViewById(R.id.neworderlist);
+        orderListView.setAdapter(orderAdapter);
+
+        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OrderView selectedOrderView = orders.get(position);
+                Long selectedOrder = selectedOrderView.getOrderId();
+                Toast.makeText(RestaurantHome.this, selectedOrder.toString(), Toast.LENGTH_LONG).show();
+
+                Intent i = new Intent(getApplicationContext(), OrderView.class);
+                i.putExtra("orderId", selectedOrder);
+                i.putExtra("orderTime", selectedOrderView.getOrderTime());
+                startActivity(i);
+                setContentView(R.layout.activity_order_view);
+            }
         });
 
         /**
