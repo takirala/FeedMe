@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="10"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="smartfoodcluster.feedme.ShoppingCartScreen"
     tools:showIn="@layout/app_bar_shopping_cart_screen">
@@ -21,6 +22,7 @@
         android:layout_gravity="center"
         android:layout_weight="2"
         android:text="Review &amp; Pay"
+        android:textAlignment="gravity"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
@@ -29,9 +31,10 @@
         android:layout_height="0dp"
         android:layout_above="@+id/totalAmountLabelGui"
         android:layout_toStartOf="@id/totalAmountLabelGui"
-        android:layout_weight="4"
+        android:layout_weight="6"
         android:headerDividersEnabled="true"
         android:textAlignment="textStart" />
+
 
     <TextView
         android:id="@+id/totalAmountGui"
@@ -42,23 +45,15 @@
         android:layout_below="@id/itemsOrderedListGui"
         android:layout_gravity="end"
         android:layout_toRightOf="@id/itemsOrderedListGui"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:text="TEXT"
         android:textAlignment="viewEnd"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/makePaymentButton"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/totalAmountGui"
-        android:layout_below="@+id/totalAmountGui"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        android:onClick="makePayment"
-        android:text="Make Payment >>"
-        android:textAlignment="center"
-        android:textAppearance="@android:color/white" />
-    <!--android:background="@drawable/payment_button"-->
+        android:text="Accept &amp; Pay >>" />
+
 </LinearLayout>

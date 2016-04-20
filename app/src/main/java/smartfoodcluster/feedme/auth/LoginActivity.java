@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), UserHome.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
-            setContentView(R.layout.activity_user_selection);
+            setContentView(R.layout.activity_user_home);
             //setContentView(R.layout.activity_user_payment);
 
 

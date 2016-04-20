@@ -20,18 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
-
 import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Place;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,14 +40,14 @@ import smartfoodcluster.feedme.R;
 
 import smartfoodcluster.feedme.handlers.LocationHandler;
 
-public class UserHome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class UserHome extends BaseActivity {
 
     protected static final String TAG = "UserHome";
 
     /**
      * Represents a geographical location.
      */
+
     protected Location mLastLocation;
 
     protected Double mLatitudeText;
@@ -63,48 +59,44 @@ public class UserHome extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user_selection);
+        setContentView(R.layout.activity_user_home);
 
         double[] loc = getLastBestLocation();
-        if (res.size() == 0) {
-            Log.e(TAG, "Performing search ");
-            Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
+        Log.e(TAG, "Location found " + loc[0] + " " + loc[1]);
 
-            LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
-                @Override
-                public void processFinish(List<Restaurant> output) {
-                    Log.e(TAG, "Search performed");
-                    for (Restaurant p : output) {
-                        res.add(p);
-                    }
-
-                    findViewById(R.id.progressBarRestaurantSearch).setVisibility(View.GONE);
-                    findViewById(R.id.restaurantList).setVisibility(View.VISIBLE);
-                    ListAdapter restaurantAdapter = new RestaurantAdapter();
-                    ListView restaurantListView = (ListView) findViewById(R.id.restaurantList);
-                    restaurantListView.setAdapter(restaurantAdapter);
-                    restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Restaurant selectedRestaurantGui = res.get(position);
-                            String selectedRestaurant = selectedRestaurantGui.getName();
-                            Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
-                            i.putExtra(Constants.name, selectedRestaurant);
-                            i.putExtra(Constants.vicinity, selectedRestaurant);
-                            try {
-                                i.putExtra("asd", selectedRestaurantGui.toPrettyString());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            startActivity(i);
-                            setContentView(R.layout.activity_user_view_menu_screen);
-                        }
-                    });
-
+        LocationHandler locationHandler = (LocationHandler) new LocationHandler(new LocationHandler.AsyncResponse() {
+            @Override
+            public void processFinish(List<Restaurant> output) {
+                Log.e(TAG, "Search performed");
+                for (Restaurant p : output) {
+                    res.add(p);
                 }
-            }).execute(loc);
-        }
+                findViewById(R.id.progressBarRestaurantSearch).setVisibility(View.GONE);
+                findViewById(R.id.restaurantList).setVisibility(View.VISIBLE);
+                ListAdapter restaurantAdapter = new RestaurantAdapter();
+                ListView restaurantListView = (ListView) findViewById(R.id.restaurantList);
+                restaurantListView.setAdapter(restaurantAdapter);
+                restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Restaurant r = res.get(position);
+                        String selectedRestaurant = r.getName();
+                        Toast.makeText(UserHome.this, selectedRestaurant, Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(getApplicationContext(), UserViewMenu.class);
+                        i.putExtra(Constants.name, selectedRestaurant);
+                        try {
+                            i.putExtra(Constants.resObject, r.toPrettyString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        i.putExtras(getIntent());
+                        startActivity(i);
+                        setContentView(R.layout.activity_user_view_menu);
+                    }
+                });
+            }
+        }).execute(loc);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -169,49 +161,6 @@ public class UserHome extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_selection, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
     }
@@ -220,54 +169,6 @@ public class UserHome extends AppCompatActivity
     protected void onStop() {
         super.onStop();
     }
-
-    /**
-     * Runs when a GoogleApiClient object successfully connects.
-     */
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        Log.e(TAG, "Yayy location connected");
-        // Provides a simple way of getting a device's location and is well suited for
-        // applications that do not require a fine-grained location and that do not need location
-        // updates. Gets the best and most recent location currently available, which may be null
-        // in rare cases when a location is not available.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            Toast.makeText(UserHome.this, Constants.requestLocation, Toast.LENGTH_LONG).show();
-            return;
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //  public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-        }
-
-        if (mLastLocation != null) {
-            mLatitudeText = mLastLocation.getLatitude();
-            mLongitudeText = mLastLocation.getLongitude();
-            Toast.makeText(this, "Hurray !! " + mLatitudeText + " , " + mLongitudeText, Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        // The connection to Google Play services was lost for some reason. We call connect() to
-        // attempt to re-establish the connection.
-        Log.i(TAG, "Connection suspended");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
-        // onConnectionFailed.
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-    }
-
 
     private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 

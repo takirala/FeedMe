@@ -1,9 +1,9 @@
 package smartfoodcluster.feedme.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.text.format.Time;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,15 +19,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.appspot.myapplicationid.orderDetailsEndpoint.model.OrderDetails;
 import com.appspot.myapplicationid.restaurantEndpoint.model.Order;
 //import com.appspot.myapplicationid.;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.OrderDetails;
 import com.google.api.client.util.DateTime;
 
-import org.json.JSONObject;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +35,7 @@ import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.ShoppingCartDao;
 import smartfoodcluster.feedme.util.Constants;
 
-public class ShoppingCart extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ShoppingCart extends BaseActivity {
 
     HashMap<String, Integer> orderedItemsMap = new HashMap<String, Integer>();
     ArrayList<ShoppingCartDao> finalOrderListArray = new ArrayList<ShoppingCartDao>();
@@ -47,7 +43,7 @@ public class ShoppingCart extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart_screen);
+        setContentView(R.layout.activity_user_shopping_cart);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,70 +79,28 @@ public class ShoppingCart extends AppCompatActivity
                     order.setStatus(Constants.NEW);
                     order.setTotalAmount(totalBill);
                     orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable("orderedItemMap");
-
                     //order.setOrderDetails(getIntent().getStringExtra(UUID.randomUUID().toString()));
+                    OrderDetails details = new OrderDetails();
+                    //order.setOrderDetails(details);
+                    Intent i = new Intent(getApplicationContext(), UserPayment.class);
+                    i.putExtra("orderedItemMap", orderedItemsMap);
+                    i.putExtras(getIntent());
+                    startActivity(i);
+                    setContentView(R.layout.activity_user_payment);
                 }
             });
         }
-
-
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        finish();
+        /*if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.shopping_cart_screen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        }*/
     }
 
     public Float calculateSum(Bundle extras) {
@@ -170,7 +124,6 @@ public class ShoppingCart extends AppCompatActivity
     public void makePayment(View view) {
 
     }
-
 
     private class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartDao> {
 

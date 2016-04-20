@@ -29,7 +29,7 @@ import smartfoodcluster.feedme.qrcode.QRCodeEncoder;
 import smartfoodcluster.feedme.qrcode.QRContents;
 
 
-public class UserPayment extends AppCompatActivity {
+public class UserPayment extends BaseActivity {
 
     protected static final String TAG = "UserPayment";
 

@@ -57,7 +57,6 @@
             android:background="#00000000"
             android:text="Payment in Progress..." />
 
-
         <ImageView
             android:id="@+id/qrCode"
             android:layout_width="220dp"
