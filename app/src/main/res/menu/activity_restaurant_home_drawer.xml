@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_orders"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Orders" />
+    <item
+        android:id="@+id/nav_edit_details"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="Edit Details" />
+    <item
+        android:id="@+id/nav_edit_menu"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Edit Menu" />
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/nav_settings_res"
+                android:icon="@drawable/ic_setting_dark"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_logout_res"
+                android:icon="@drawable/ic_setting_dark"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

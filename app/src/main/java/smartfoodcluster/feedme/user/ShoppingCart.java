@@ -125,7 +125,6 @@ public class ShoppingCart extends BaseActivity {
 
     }
 
-
     private class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartDao> {
 
         public ShoppingCartAdapter() {

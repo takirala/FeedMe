@@ -17,6 +17,7 @@ public class Constants {
     public static String placeId = "placeId";
     public static String vicinity = "vicinity";
     public static String name = "name";
+    public static String logout = "Logging out the user";
     public static String resObject = "resObject";
     public static String showSuccess = "showSuccess";
     public static String userRole = "userRole";
