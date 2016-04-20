@@ -3,6 +3,9 @@ package smartfoodcluster.feedme.util;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by Lavenger on 4/14/2016.
  */
@@ -17,6 +20,7 @@ public class Constants {
     public static String placeId = "placeId";
     public static String vicinity = "vicinity";
     public static String name = "name";
+    public static String orderedItemMap = "orderedItemMap";
     public static String logout = "Logging out the user";
     public static String resObject = "resObject";
     public static String showSuccess = "showSuccess";
@@ -35,4 +39,5 @@ public class Constants {
         public static final boolean USER = true;
         public static final boolean OWNER = false;
     }
+
 }

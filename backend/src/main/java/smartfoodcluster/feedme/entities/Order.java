@@ -1,10 +1,12 @@
 package smartfoodcluster.feedme.entities;
 
+import com.google.appengine.repackaged.com.google.common.base.Flag;
 import com.googlecode.objectify.annotation.Container;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Srinivas on 4/17/2016.
@@ -57,15 +59,15 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public OrderDetails getOrderDetails() {
+    public HashMap<String, Integer> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
+    public void setOrderDetails(HashMap<String, Integer> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
     Date orderDate;
     @Container
-    OrderDetails orderDetails;
+    HashMap<String, Integer> orderDetails;
 }

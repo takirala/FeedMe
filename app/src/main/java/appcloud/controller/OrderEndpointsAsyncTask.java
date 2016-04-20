@@ -42,7 +42,6 @@ public class OrderEndpointsAsyncTask extends AsyncTask<Void, Void, List<Order>> 
                         }
                     });
             // end options for devappserver
-
             myApiService = builder.build();
         }
 

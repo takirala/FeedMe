@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,12 +20,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.appspot.myapplicationid.orderDetailsEndpoint.model.OrderDetails;
+import com.appspot.myapplicationid.restaurantEndpoint.model.JsonMap;
 import com.appspot.myapplicationid.restaurantEndpoint.model.Order;
 //import com.appspot.myapplicationid.;
 
+import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.json.GenericJson;
+import com.google.api.client.json.Json;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.DateTime;
+import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.appengine.repackaged.com.google.gson.stream.JsonReader;
 
+import org.json.JSONObject;
+
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,18 +83,47 @@ public class ShoppingCart extends BaseActivity {
             makePaymentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String resStr = (String) extras.get(Constants.resObject);
+                    Log.e(TAG, "###" + resStr);
+                    JsonFactory factory = new AndroidJsonFactory();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(resStr.trim());
+                        Restaurant r1 = factory.fromString(resStr.trim(), Restaurant.class);
+                        Log.e(TAG, "" + r1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        Gson gson = new Gson();
+                        JsonReader reader = new JsonReader(new StringReader(resStr.trim()));
+                        reader.setLenient(true);
+                        Restaurant r = gson.fromJson(reader, Restaurant.class);
+                        Log.e(TAG, "" + r);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Restaurant r = (Restaurant) extras.get(Constants.resObject);
+                    Log.e(TAG, ">>>" + r);
+
                     Order order = new Order();
-                    order.setOrderUUID(getIntent().getStringExtra(UUID.randomUUID().toString()));
+                    order.setOrderUUID(UUID.randomUUID().toString());
                     DateTime dateTime = new DateTime(new Date(), TimeZone.getTimeZone("EDT"));
                     order.setOrderDate(dateTime);
                     order.setStatus(Constants.NEW);
                     order.setTotalAmount(totalBill);
-                    orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable("orderedItemMap");
+
+                    orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable(Constants.orderedItemMap);
                     //order.setOrderDetails(getIntent().getStringExtra(UUID.randomUUID().toString()));
-                    OrderDetails details = new OrderDetails();
-                    //order.setOrderDetails(details);
+                    JsonMap map = new JsonMap();
+                    for (String key : orderedItemsMap.keySet()) {
+                        map.put(key, orderedItemsMap.get(key));
+                    }
+                    order.setOrderDetails(map);
+
                     Intent i = new Intent(getApplicationContext(), UserPayment.class);
-                    i.putExtra("orderedItemMap", orderedItemsMap);
                     i.putExtras(getIntent());
                     startActivity(i);
                     setContentView(R.layout.activity_user_payment);
@@ -148,7 +188,5 @@ public class ShoppingCart extends BaseActivity {
 
             return thisView;
         }
-
-
     }
 }

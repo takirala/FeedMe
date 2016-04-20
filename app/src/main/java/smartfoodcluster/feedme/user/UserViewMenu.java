@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class UserViewMenu extends BaseActivity {
         menu.add("Fiery Item 10");
         menu.add("Exotic Dish 11");
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,8 @@ public class UserViewMenu extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ShoppingCart.class);
-                i.putExtra("orderedItemMap", orderedItemMap);
+                i.putExtra(Constants.orderedItemMap, orderedItemMap);
+                //resobject and ordereditemmap included.
                 i.putExtras(getIntent());
                 startActivity(i);
                 setContentView(R.layout.activity_user_shopping_cart);

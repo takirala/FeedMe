@@ -100,15 +100,15 @@ public class LocationHandler extends AsyncTask<double[], Void, List<Restaurant>>
                 JSONObject r = (JSONObject) jArray.get(i);
                 Restaurant rObj = new Restaurant();
                 if (r.has("name"))
-                    rObj.setName(r.getString("name"));
+                    rObj.setName(JSONObject.quote(r.getString("name")));
                 if (r.has("price_level"))
-                    rObj.setPriceLevel(r.getString("price_level"));
+                    rObj.setPriceLevel(JSONObject.quote(r.getString("price_level") + "*"));
                 if (r.has("rating"))
-                    rObj.setRating(r.getString("rating"));
+                    rObj.setRating(JSONObject.quote(r.getString("rating") + "*"));
                 if (r.has("vicinity"))
-                    rObj.setVicinity(r.getString("vicinity"));
+                    rObj.setVicinity(JSONObject.quote(r.getString("vicinity")));
                 if (r.has("place_id"))
-                    rObj.setPlaceId(r.getString("place_id"));
+                    rObj.setPlaceId(JSONObject.quote(r.getString("place_id")));
                 solution.add(rObj);
             }
         }
