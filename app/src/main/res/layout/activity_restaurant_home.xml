@@ -13,6 +13,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Feed Me" />
 
+    <include layout="@layout/fragment_new_order" />
+
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawerLayout"
