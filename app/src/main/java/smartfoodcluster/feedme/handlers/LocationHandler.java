@@ -4,7 +4,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
+import com.appspot.g3smartfoodcluster.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -28,7 +28,9 @@ import java.util.List;
 public class LocationHandler extends AsyncTask<double[], Void, List<Restaurant>> {
 
     //public static String API_KEY = "AIzaSyB0wZSmNvQgaPj4TdvtGBqzTE2qCfmJCgQ";
-    public static String API_KEY = "AIzaSyBQiQzsH6YNX4ZUtM1Uzxm2_5pd7kWH7iI";
+    //public static String API_KEY = "AIzaSyBQiQzsH6YNX4ZUtM1Uzxm2_5pd7kWH7iI";
+    public static String API_KEY = "AIzaSyDxXRuLPwgLebC_tzEleXoJnK8cjFdAOUo";
+
     private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/search/json?";
 
     private static final HttpTransport transport = new ApacheHttpTransport();

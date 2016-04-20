@@ -16,9 +16,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.appspot.myapplicationid.orderEndpoint.model.JsonMap;
-import com.appspot.myapplicationid.orderEndpoint.model.Order;
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.JsonMap;
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
+import com.appspot.g3smartfoodcluster.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.DateTime;
@@ -34,8 +34,6 @@ import appcloud.controller.ListOrdersTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.ShoppingCartDao;
 import smartfoodcluster.feedme.util.Constants;
-
-//import com.appspot.myapplicationid.;
 
 public class ShoppingCart extends BaseActivity {
 
@@ -99,9 +97,6 @@ public class ShoppingCart extends BaseActivity {
                         map.put(key, orderedItemsMap.get(key));
                     }
                     order.setOrderDetails(map);
-
-                    saveToCloud(r, order);
-                    saveToCloud(r, order);
                     saveToCloud(r, order);
                     listOrders();
                     Intent i = new Intent(getApplicationContext(), UserPayment.class);

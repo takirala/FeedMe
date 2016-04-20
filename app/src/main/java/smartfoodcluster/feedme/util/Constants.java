@@ -10,7 +10,8 @@ public class Constants {
     public static final boolean adminMode = false;
 
     public static final String gUserInfo = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
-    public static final String url = "http://10.0.2.2:8080/_ah/api/";
+    //    public static String url = "http://10.0.2.2:8080/_ah/api/";
+    public static String url = "https://g3smartfoodcluster.appspot.com/_ah/api/";
     public static String emailId = "email_id";
     public static String placeId = "placeId";
     public static String vicinity = "vicinity";

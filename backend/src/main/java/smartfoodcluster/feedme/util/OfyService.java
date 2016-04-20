@@ -4,6 +4,8 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
+import smartfoodcluster.feedme.entities.Menu;
+import smartfoodcluster.feedme.entities.Order;
 import smartfoodcluster.feedme.entities.Restaurant;
 import smartfoodcluster.feedme.entities.User;
 
@@ -15,6 +17,8 @@ public class OfyService {
 
     static {
         ObjectifyService.register(User.class);
+        ObjectifyService.register(Order.class);
+        ObjectifyService.register(Menu.class);
         ObjectifyService.register(Restaurant.class);
     }
 

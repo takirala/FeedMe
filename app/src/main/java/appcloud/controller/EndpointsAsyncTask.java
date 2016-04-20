@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.userEndpoint.UserEndpoint;
-import com.appspot.myapplicationid.userEndpoint.model.User;
+import com.appspot.g3smartfoodcluster.userEndpoint.UserEndpoint;
+import com.appspot.g3smartfoodcluster.userEndpoint.model.User;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;

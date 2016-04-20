@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.orderEndpoint.OrderEndpoint;
-import com.appspot.myapplicationid.orderEndpoint.model.Order;
+import com.appspot.g3smartfoodcluster.orderEndpoint.OrderEndpoint;
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;

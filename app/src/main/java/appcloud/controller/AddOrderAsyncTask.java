@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.orderEndpoint.OrderEndpoint;
-import com.appspot.myapplicationid.orderEndpoint.model.Order;
+import com.appspot.g3smartfoodcluster.orderEndpoint.OrderEndpoint;
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -50,9 +50,10 @@ public class AddOrderAsyncTask extends AsyncTask<Object, Void, List<Order>> {
         try {
             Order o = (Order) params[0];
             OrderEndpoint.RegisterOrder registerOrder = myApiService.registerOrder(o);
-            registerOrder.getLastStatusCode();
+            registerOrder.execute();
+            Log.e(TAG, "Status code > " + registerOrder.getLastStatusCode());
         } catch (IOException e) {
-            Log.e(TAG, "Registering order failed");
+            Log.e(TAG, "Registering order failed" + e.getMessage());
         }
         return Collections.EMPTY_LIST;
     }

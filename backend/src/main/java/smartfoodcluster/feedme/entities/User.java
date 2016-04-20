@@ -18,7 +18,16 @@ public class User {
     String role;
     String address;
     String name;
-    Map<Long, Order> orders = new HashMap<>();
+
+    public Map<String, Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Map<String, Order> orders) {
+        this.orders = orders;
+    }
+
+    Map<String, Order> orders = new HashMap<>();
 
     User() {
 

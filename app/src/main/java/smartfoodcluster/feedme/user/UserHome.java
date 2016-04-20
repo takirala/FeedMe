@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
+import com.appspot.g3smartfoodcluster.restaurantEndpoint.model.Restaurant;
 
 import java.io.IOException;
 import java.util.ArrayList;

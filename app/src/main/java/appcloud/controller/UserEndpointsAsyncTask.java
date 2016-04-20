@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.appspot.myapplicationid.userEndpoint.UserEndpoint;
-import com.appspot.myapplicationid.userEndpoint.model.User;
+import com.appspot.g3smartfoodcluster.userEndpoint.UserEndpoint;
+import com.appspot.g3smartfoodcluster.userEndpoint.model.User;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -14,6 +14,8 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import smartfoodcluster.feedme.util.Constants;
 
 //import com.appspot.myapplicationid.restaurantEndpoint.RestaurantEndpoint;
 //import com.appspot.myapplicationid.restaurantEndpoint.model.Restaurant;
@@ -34,7 +36,7 @@ class UserEndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    .setRootUrl(Constants.url)
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
