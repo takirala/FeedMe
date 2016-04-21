@@ -74,12 +74,12 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void> {
         return;
     }
 
-    private static String readResponse(InputStream is)throws IOException{
+    private static String readResponse(InputStream is) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] data = new byte[2048];
         int len = 0;
-        while((len = is.read(data, 0, data.length)) >= 0) {
-            bos.write(data, 0 , len);
+        while ((len = is.read(data, 0, data.length)) >= 0) {
+            bos.write(data, 0, len);
         }
         return new String(bos.toByteArray(), "UTF-8");
 

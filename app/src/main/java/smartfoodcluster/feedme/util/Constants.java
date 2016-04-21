@@ -7,10 +7,10 @@ public class Constants {
 
     public static final boolean authEnabled = false;
 
-    public static final boolean adminMode = false;
+    public static final boolean adminMode =false;
 
     public static final String gUserInfo = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
-    //    public static String url = "http://10.0.2.2:8080/_ah/api/";
+    // public static String url = "http://10.0.2.2:8080/_ah/api/";
     public static String url = "https://g3smartfoodcluster.appspot.com/_ah/api/";
     public static String emailId = "email_id";
     public static String placeId = "placeId";
@@ -19,6 +19,7 @@ public class Constants {
     public static String orderedItemMap = "orderedItemMap";
     public static String logout = "Logging out the user";
     public static String resObject = "resObject";
+    public static String orderObject = "orderObject";
     public static String showSuccess = "showSuccess";
     public static String userRole = "userRole";
     public static String userAuthenticated = "userAuthenticated";

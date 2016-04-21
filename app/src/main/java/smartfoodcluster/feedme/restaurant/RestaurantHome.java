@@ -55,7 +55,6 @@ public class RestaurantHome extends AppCompatActivity {
         mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
 
 
-
         /**
          * Setup click events on the Navigation View Items.
          */

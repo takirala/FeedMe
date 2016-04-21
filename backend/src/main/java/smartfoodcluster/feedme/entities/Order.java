@@ -4,8 +4,7 @@ import com.googlecode.objectify.annotation.Container;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Created by Srinivas on 4/17/2016.
@@ -18,9 +17,9 @@ public class Order {
     int status;
     Float totalAmount;
     String restaurantPlaceId;
-    Date orderDate;
-    @Container
-    HashMap<String, Integer> orderDetails;
+    String orderDate;
+    String orderDetails;
+    // Will be in the format index#count. For example 1#3
 
     public String getOrderUUID() {
         return orderUUID;
@@ -62,20 +61,19 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
-    public HashMap<String, Integer> getOrderDetails() {
+    public String getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(HashMap<String, Integer> orderDetails) {
+    public void setOrderDetails(String orderDetails) {
         this.orderDetails = orderDetails;
     }
-
 }

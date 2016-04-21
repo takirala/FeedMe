@@ -16,27 +16,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.appspot.g3smartfoodcluster.orderEndpoint.model.JsonMap;
 import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
 import com.appspot.g3smartfoodcluster.restaurantEndpoint.model.Restaurant;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.util.DateTime;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.TimeZone;
 import java.util.UUID;
 
 import appcloud.controller.AddOrderAsyncTask;
-import appcloud.controller.ListOrdersTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.dao.ShoppingCartDao;
 import smartfoodcluster.feedme.util.Constants;
 
 public class ShoppingCart extends BaseActivity {
 
+    public static final String TAG = "ShoppingCart";
     HashMap<String, Integer> orderedItemsMap = new HashMap<String, Integer>();
     ArrayList<ShoppingCartDao> finalOrderListArray = new ArrayList<ShoppingCartDao>();
 
@@ -86,20 +87,32 @@ public class ShoppingCart extends BaseActivity {
                     }
 
                     Order order = new Order();
-                    order.setOrderUUID(UUID.randomUUID().toString());
-                    DateTime dateTime = new DateTime(new Date(), TimeZone.getTimeZone("EDT"));
-                    order.setOrderDate(dateTime);
+                    order.setOrderUUID(JSONObject.quote(UUID.randomUUID().toString()));
+                    order.setRestaurantPlaceId(JSONObject.quote(r.getPlaceId()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("E_HH_mm_a");
+                    String now = sdf.format(new Date()).toString();
+                    order.setOrderDate(JSONObject.quote(now));
                     order.setStatus(Constants.NEW);
                     order.setTotalAmount(totalBill);
                     orderedItemsMap = (HashMap<String, Integer>) extras.getSerializable(Constants.orderedItemMap);
-                    JsonMap map = new JsonMap();
+
+                    StringBuffer sb = new StringBuffer();
                     for (String key : orderedItemsMap.keySet()) {
-                        map.put(key, orderedItemsMap.get(key));
+                        if (sb.length() == 0)
+                            sb.append(key + "#" + orderedItemsMap.get(key));
+                        else
+                            sb.append("|" + key + "#" + orderedItemsMap.get(key));
                     }
-                    order.setOrderDetails(map);
+                    order.setOrderDetails(JSONObject.quote(sb.toString()));
                     saveToCloud(r, order);
-                    listOrders();
+                    Log.e(TAG, "Saved on cloud");
                     Intent i = new Intent(getApplicationContext(), UserPayment.class);
+                    try {
+                        i.putExtra(Constants.resObject, r.toPrettyString());
+                        i.putExtra(Constants.orderObject, order.toPrettyString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     i.putExtras(getIntent());
                     startActivity(i);
                     setContentView(R.layout.activity_user_payment);
@@ -110,13 +123,7 @@ public class ShoppingCart extends BaseActivity {
 
     private void saveToCloud(Restaurant restaurant, Order order) {
         AddOrderAsyncTask task = new AddOrderAsyncTask(getApplicationContext());
-        order.setRestaurantPlaceId(restaurant.getPlaceId());
         task.execute(order);
-    }
-
-    private void listOrders() {
-        ListOrdersTask task = new ListOrdersTask(getApplicationContext());
-        task.execute("a");
     }
 
     @Override
