@@ -56,30 +56,30 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp">
 
-    <RadioButton
-        android:id="@+id/owner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restaurant"
-        android:textSize="28dp"
-        android:layout_above="@+id/sign_in_button"
-        android:layout_alignEnd="@+id/welcomeText"
-        android:layout_marginBottom="22dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="#FF1744"/>
+        <RadioButton
+            android:id="@+id/owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant"
+            android:textSize="28dp"
+            android:layout_above="@+id/sign_in_button"
+            android:layout_alignEnd="@+id/welcomeText"
+            android:layout_marginBottom="22dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#FF1744" />
 
-    <RadioButton
-        android:id="@+id/user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User"
-        android:textSize="28dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/owner"
-        android:layout_toStartOf="@+id/sign_in_button"
-        android:textColor="#FF1744"/>
+        <RadioButton
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="28dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignTop="@+id/owner"
+            android:layout_toStartOf="@+id/sign_in_button"
+            android:textColor="#FF1744" />
     </RadioGroup>
 
 </RelativeLayout>

@@ -4,7 +4,7 @@ package smartfoodcluster.feedme.dao;
  * Created by hemanth.pinaka on 4/6/2016.
  */
 public class RestaurantGui {
-    String restaurantName=new String();
+    String restaurantName = new String();
     int restaurantIconId;
 
     public RestaurantGui(String restaurantName, int restaurantIconId) {

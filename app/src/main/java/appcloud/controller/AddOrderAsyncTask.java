@@ -13,7 +13,6 @@ import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,7 +56,6 @@ public class AddOrderAsyncTask extends AsyncTask<Object, Void, List<Order>> {
         }
         return Collections.EMPTY_LIST;
     }
-
 
     @Override
     protected void onPostExecute(List<Order> result) {

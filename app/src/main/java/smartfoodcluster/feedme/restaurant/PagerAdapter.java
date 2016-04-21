@@ -3,6 +3,7 @@ package smartfoodcluster.feedme.restaurant;
 /**
  * Created by Srinivas on 4/18/2016.
  */
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

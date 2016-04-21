@@ -4,22 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <!-- <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="Primary\nFragment"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="30sp" />-->
+    <!-- <TextView
+         android:id="@+id/textView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="40dp"
+         android:gravity="center"
+         android:text="Primary\nFragment"
+         android:textColor="@android:color/holo_blue_dark"
+         android:textSize="30sp" />-->
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/neworderlist"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <!--<TextView
         android:layout_width="wrap_content"

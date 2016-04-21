@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,14 +15,25 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import appcloud.controller.ListOrdersTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.user.BaseActivity;
+import smartfoodcluster.feedme.util.Constants;
 
 public class QRCodeScanner extends BaseActivity {
 
+    public static final String TAG = "QRCodeScanner";
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 
     @Override
@@ -36,7 +48,7 @@ public class QRCodeScanner extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, Constants.writeToUs, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -94,10 +106,97 @@ public class QRCodeScanner extends BaseActivity {
                 //get the extras that are returned from the intent
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                //listOrders(contents);
+                boolean isValidOrder = verifyOrderOnCloud(contents);
                 Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format, Toast.LENGTH_LONG);
                 toast.show();
 
             }
+        }
+    }
+
+    private boolean verifyOrderOnCloud(final String orderId) {
+
+        ListOrdersTask locationHandler = (ListOrdersTask) new ListOrdersTask(new ListOrdersTask.AsyncResponse() {
+            @Override
+            public void processFinish(List<Order> output) {
+                Log.e(TAG, "Looking for orderId " + orderId + " Result size : " + output.size());
+                for (Order o : output) {
+                    Log.e(TAG, "Order uuid : " + o.getOrderUUID());
+                    if (o.getOrderUUID().contains(orderId)) {
+                        try {
+                            Log.e(TAG, "Order matched \n >> " + o.toPrettyString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        displayOrder(o);
+                        try {
+                            Toast.makeText(QRCodeScanner.this, o.toPrettyString(), Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    } else continue;
+                }
+            }
+        }).execute();
+        return false;
+    }
+
+    private void displayOrder(Order o) {
+
+        findViewById(R.id.scannedDetails).setVisibility(View.VISIBLE);
+
+        if (o.getOrderUUID() != null) {
+            ((TextView) findViewById(R.id.orderId)).setText("OrderId : " + o.getOrderUUID().split("-")[0].replace("\"", ""));
+        }
+
+        if (o.getOrderDate() != null) {
+            ((TextView) findViewById(R.id.orderId)).setText("Date : " + o.getOrderDate());
+        }
+
+        if (o.getTotalAmount() != null) {
+            ((TextView) findViewById(R.id.orderId)).setText("Amount : " + o.getTotalAmount());
+        }
+
+        if (o.getOrderDetails() != null) {
+
+            String[] items = new String[1];
+            if (o.getOrderDetails().contains("|")) {
+                items = o.getOrderDetails().split("|");
+            } else {
+                items[0] = o.getOrderDetails();
+            }
+            StringBuffer sb = new StringBuffer();
+            for (String item : items) {
+                String[] sp = item.split("#");
+                Log.e(TAG, "Item " + item + " \tsize" + sp.length);
+                sb.append("\n" + sp[0] + " \t\t\t -  " + sp[1]);
+            }
+            ((TextView) findViewById(R.id.orderId)).setText(sb.toString());
+        }
+
+    }
+
+
+    private void listOrders(String orderId) {
+        ListOrdersTask task = new ListOrdersTask(getApplicationContext());
+        AsyncTask<Void, Void, List<Order>> result = task.execute();
+        try {
+            List<Order> output = result.get();
+            Log.e(TAG, "Total order > " + output.size());
+            for (Order o : output) {
+                Log.e(TAG, "Order uuid : " + o.getOrderUUID());
+                if (o.getOrderUUID().equals(orderId)) {
+                    //Call http and break
+                    Toast.makeText(QRCodeScanner.this, o.toString(), Toast.LENGTH_LONG).show();
+                    break;
+                } else continue;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 

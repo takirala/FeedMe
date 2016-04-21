@@ -12,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.json.JsonFactory;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+
+import org.json.JSONObject;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.handlers.PaymentQRHandler;
 import smartfoodcluster.feedme.qrcode.QRCodeEncoder;
 import smartfoodcluster.feedme.qrcode.QRContents;
+import smartfoodcluster.feedme.util.Constants;
 
 
 public class UserPayment extends BaseActivity {
@@ -35,33 +41,27 @@ public class UserPayment extends BaseActivity {
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarPayment);
         final TextView progressBarText = (TextView) findViewById(R.id.progressBarPaymentText);
         final ImageView qrCode = (ImageView) findViewById(R.id.qrCode);
+        final Bundle extras = getIntent().getExtras();
+        String resStr = (String) extras.get(Constants.orderObject);
 
-        Log.e(TAG, "Received background sleeping");
-
-        PaymentQRHandler locationHandler = (PaymentQRHandler) new PaymentQRHandler(new PaymentQRHandler.AsyncResponse() {
-            @Override
-            public void processFinish(String uuid) {
-                Log.e(TAG, "Payment performed");
-                progressBar.setVisibility(View.GONE);
-                progressBarText.setText("Payment successful!!");
-                qrCode.setVisibility(View.VISIBLE);
-                onClick(uuid);
-            }
-        }).execute();
-
-        Log.e(TAG, "After Received background slept");
-
-
-
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        try {
+            JsonFactory factory = new AndroidJsonFactory();
+            JSONObject jsonObject = new JSONObject(resStr.trim());
+            final Order r = factory.fromString(jsonObject.toString(), Order.class);
+            Log.e(TAG, "" + r);
+            PaymentQRHandler locationHandler = (PaymentQRHandler) new PaymentQRHandler(new PaymentQRHandler.AsyncResponse() {
+                @Override
+                public void processFinish() {
+                    Log.e(TAG, "Payment performed");
+                    progressBar.setVisibility(View.GONE);
+                    progressBarText.setText("Payment successful!!");
+                    qrCode.setVisibility(View.VISIBLE);
+                    onClick(r.getOrderUUID());
+                }
+            }).execute();
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -19,7 +19,7 @@ public class GetNameInForeground extends AbstractGetNameTask {
     @Override
     protected String fetchToken() throws IOException {
         try {
-            String token = GoogleAuthUtil.getToken(mActivity, mEmail,mScope);
+            String token = GoogleAuthUtil.getToken(mActivity, mEmail, mScope);
         } catch (UserRecoverableAuthException e) {
             mActivity.startActivityForResult(e.getIntent(), mRequestCode);
         } catch (GoogleAuthException e) {
