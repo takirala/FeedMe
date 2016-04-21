@@ -7,7 +7,7 @@ public class Constants {
 
     public static final boolean authEnabled = false;
 
-    public static final boolean adminMode =false;
+    public static final boolean adminMode = false;
 
     public static final String gUserInfo = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
     // public static String url = "http://10.0.2.2:8080/_ah/api/";

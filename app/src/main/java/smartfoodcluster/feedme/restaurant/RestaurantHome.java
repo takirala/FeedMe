@@ -58,7 +58,6 @@ public class RestaurantHome extends AppCompatActivity {
         /**
          * Setup click events on the Navigation View Items.
          */
-
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -80,7 +79,7 @@ public class RestaurantHome extends AppCompatActivity {
             }
 
         });
-
+/*
         List<OrderView> orderList = new ArrayList<OrderView>();
 
         orderList.add(new OrderView(123L, "123"));
@@ -114,9 +113,7 @@ public class RestaurantHome extends AppCompatActivity {
                 R.string.app_name);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
         mDrawerToggle.syncState();
-
     }
 
     private class OrderAdapter extends ArrayAdapter<OrderView> {
