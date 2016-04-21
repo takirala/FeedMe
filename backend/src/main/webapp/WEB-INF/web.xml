@@ -8,7 +8,8 @@
             <param-value>
                 smartfoodcluster.feedme.backend.UserEndpoint,
                 smartfoodcluster.feedme.backend.OrderEndpoint,
-                smartfoodcluster.feedme.backend.RestaurantEndpoint
+                smartfoodcluster.feedme.backend.RestaurantEndpoint,
+                smartfoodcluster.feedme.backend.WeavePingerEndpoint
             </param-value>
 
         </init-param>

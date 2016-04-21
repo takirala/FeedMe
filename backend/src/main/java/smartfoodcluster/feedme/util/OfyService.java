@@ -8,6 +8,7 @@ import smartfoodcluster.feedme.entities.Menu;
 import smartfoodcluster.feedme.entities.Order;
 import smartfoodcluster.feedme.entities.Restaurant;
 import smartfoodcluster.feedme.entities.User;
+import smartfoodcluster.feedme.entities.Weave;
 
 /**
  * Objectify service wrapper so we can statically register our persistence classes
@@ -20,6 +21,7 @@ public class OfyService {
         ObjectifyService.register(Order.class);
         ObjectifyService.register(Menu.class);
         ObjectifyService.register(Restaurant.class);
+        ObjectifyService.register(Weave.class);
     }
 
     public static Objectify ofy() {

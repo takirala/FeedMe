@@ -2,9 +2,7 @@ package smartfoodcluster.feedme.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -47,14 +45,6 @@ public class ShoppingCart extends BaseActivity {
         setContentView(R.layout.activity_user_shopping_cart);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, Constants.writeToUs, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,8 +135,8 @@ public class ShoppingCart extends BaseActivity {
             finalOrderListArray = new ArrayList<ShoppingCartDao>();
 
             for (String menuItem : orderedItemsMap.keySet()) {
-                totalBill += orderedItemsMap.get(menuItem) * 45;
-                finalOrderListArray.add(new ShoppingCartDao(menuItem, new Integer(45), orderedItemsMap.get(menuItem)));
+                totalBill += orderedItemsMap.get(menuItem) * 9;
+                finalOrderListArray.add(new ShoppingCartDao(menuItem, new Integer(9), orderedItemsMap.get(menuItem)));
             }
             ArrayAdapter<ShoppingCartDao> adapter = new ShoppingCartAdapter();
             orderSummaryListView.setAdapter(adapter);
@@ -178,7 +168,7 @@ public class ShoppingCart extends BaseActivity {
             TextView countGui = (TextView) thisView.findViewById(R.id.itemCountGui);
             countGui.setText(itemOnFocus.getCountForItem().toString());
             TextView amountPerItem = (TextView) thisView.findViewById(R.id.totalPerItemGui);
-            amountPerItem.setText(new Integer(itemOnFocus.getCountForItem() * itemOnFocus.getCostForItem()).toString());
+            amountPerItem.setText("$" + new Integer(itemOnFocus.getCountForItem() * itemOnFocus.getCostForItem()).toString());
 
             return thisView;
         }

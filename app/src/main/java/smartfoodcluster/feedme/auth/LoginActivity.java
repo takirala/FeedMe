@@ -24,6 +24,7 @@ import smartfoodcluster.feedme.handlers.AbstractGetNameTask;
 import smartfoodcluster.feedme.handlers.GetNameInForeground;
 import smartfoodcluster.feedme.qrcode.QRCodeScanner;
 import smartfoodcluster.feedme.restaurant.RestaurantHome;
+//import smartfoodcluster.feedme.restaurant.RestaurantHomeNew;
 import smartfoodcluster.feedme.user.UserHome;
 import smartfoodcluster.feedme.util.Constants;
 
@@ -107,16 +108,12 @@ public class LoginActivity extends AppCompatActivity {
                 "server:client_id:1-web-app.apps.googleusercontent.com");
 
         if (userRole == Constants.UserRole.USER) {
-
-
             //Intent i = new Intent(getApplicationContext(), UserPayment.class);
             Intent i = new Intent(getApplicationContext(), UserHome.class);
             i.putExtra(Constants.showSuccess, true);
             startActivity(i);
             setContentView(R.layout.activity_user_home);
             //setContentView(R.layout.activity_user_payment);
-
-
         } else {
             Intent i = new Intent(getApplicationContext(), RestaurantHome.class);
             i.putExtra(Constants.showSuccess, true);

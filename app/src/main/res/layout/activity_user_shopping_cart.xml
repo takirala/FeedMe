@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_shopping_cart_screen"
+        app:headerLayout="@layout/nav_header_user_selection"
         app:menu="@menu/activity_user_selection_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

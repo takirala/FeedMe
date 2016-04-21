@@ -26,13 +26,13 @@
     <string name="title_activity_user_review_order">User Review Order</string>
     <string name="title_activity_user_payment">User Payment</string>
     <string name="title_activity_order_detail">Order Detail</string>
-    <string name="title_activity_restaurateur_home">Restaurant Home</string>
+    <string name="title_activity_restaurateur_home">Orders</string>
     <string name="title_activity_user_restaurant_finder">UserRestaurantFinder</string>
     <string name="large_text"></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_shopping_cart_screen">Check Out</string>
-    <string name="title_activity_user_view_menu_screen">Restaurant Home</string>
+    <string name="title_activity_user_view_menu_screen">Orders</string>
 
 
     <!-- Custom string constants-->
@@ -49,6 +49,10 @@
     <string name="stop_updates">Stop updates</string>
     <string name="location_updated_message">Location updated</string>
     <string name="title_activity_qrcode_scanner">QR Code Scanner</string>
-    <string name="title_activity_restaurant_home">RestaurantHome</string>
+    <string name="title_activity_restaurant_home">Order History</string>
+
+    <string name="title_new_orders"> New </string>
+    <string name="title_processing_orders"> Processing </string>
+    <string name="title_completed_orders"> Completed </string>
 
 </resources>

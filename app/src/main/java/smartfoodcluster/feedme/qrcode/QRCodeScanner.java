@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import appcloud.controller.ListOrdersTask;
+import appcloud.controller.WeavePingerTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.user.BaseActivity;
 import smartfoodcluster.feedme.util.Constants;
@@ -44,14 +45,6 @@ public class QRCodeScanner extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, Constants.writeToUs, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +58,7 @@ public class QRCodeScanner extends BaseActivity {
 
     //product qr code mode
     public void scanQR(View v) {
+
         try {
             //start the scanning activity from the com.google.zxing.client.android.SCAN intent
             Intent intent = new Intent(ACTION_SCAN);
@@ -135,6 +129,7 @@ public class QRCodeScanner extends BaseActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        blinkLED();
                         break;
                     } else continue;
                 }
@@ -143,20 +138,27 @@ public class QRCodeScanner extends BaseActivity {
         return false;
     }
 
+    private void blinkLED() {
+        WeavePingerTask task = new WeavePingerTask();
+        Toast.makeText(QRCodeScanner.this, "Sending Request", Toast.LENGTH_SHORT).show();
+        task.execute(true);
+    }
+
+
     private void displayOrder(Order o) {
 
         findViewById(R.id.scannedDetails).setVisibility(View.VISIBLE);
 
         if (o.getOrderUUID() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("OrderId : " + o.getOrderUUID().split("-")[0].replace("\"", ""));
+            ((TextView) findViewById(R.id.orderIdText)).setText("OrderId : " + o.getOrderUUID().split("-")[0].replace("\"", ""));
         }
 
         if (o.getOrderDate() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("Date : " + o.getOrderDate());
+            ((TextView) findViewById(R.id.orderDate)).setText("Date : " + o.getOrderDate());
         }
 
         if (o.getTotalAmount() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("Amount : " + o.getTotalAmount());
+            ((TextView) findViewById(R.id.orderAmount)).setText("Amount : " + o.getTotalAmount());
         }
 
         if (o.getOrderDetails() != null) {
@@ -173,7 +175,7 @@ public class QRCodeScanner extends BaseActivity {
                 Log.e(TAG, "Item " + item + " \tsize" + sp.length);
                 sb.append("\n" + sp[0] + " \t\t\t -  " + sp[1]);
             }
-            ((TextView) findViewById(R.id.orderId)).setText(sb.toString());
+            ((TextView) findViewById(R.id.orderDetails)).setText(sb.toString());
         }
 
     }

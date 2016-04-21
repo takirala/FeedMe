@@ -18,6 +18,7 @@ import java.io.File;
 
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.auth.LoginActivity;
+import smartfoodcluster.feedme.restaurant.RestaurantHome;
 import smartfoodcluster.feedme.util.Constants;
 
 /**
@@ -40,7 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
         Log.e(TAG, "" + id);
         if (id == R.id.nav_orders) {
-            // Handle the camera action
+            Intent i = new Intent(getApplicationContext(), RestaurantHome.class);
+            startActivity(i);
+            setContentView(R.layout.activity_restaurant_home);
         } else if (id == R.id.nav_logout) {
             Log.e(TAG, "Logging out the user ");
             try {

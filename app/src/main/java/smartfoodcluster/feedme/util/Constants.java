@@ -6,7 +6,6 @@ package smartfoodcluster.feedme.util;
 public class Constants {
 
     public static final boolean authEnabled = false;
-
     public static final boolean adminMode = false;
 
     public static final String gUserInfo = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
@@ -34,6 +33,18 @@ public class Constants {
 
     public static final Integer REGISTER = 1;
     public static final Integer LIST = 2;
+
+    public static String getStatus(Integer status) {
+        switch (status) {
+            case NEW:
+                return "NEW ORDER";
+            case PROCESSING:
+                return "IN PROCESSING";
+            case COMPLETED:
+                return "COMPLETED";
+        }
+        return "Unknown";
+    }
 
     public static class UserRole {
         public static final boolean USER = true;
