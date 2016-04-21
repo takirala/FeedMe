@@ -27,6 +27,18 @@ dependencies {
     compile 'com.google.appengine:appengine-endpoints-deps:1.9.18'
     compile 'javax.servlet:servlet-api:2.5'
     compile 'com.googlecode.objectify:objectify:5.0.3'
+
+    // Weave
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'javax.inject:javax.inject:1'
+    compile 'com.googlecode.objectify:objectify:5.0'
+
+    compile 'com.google.api-client:google-api-client:1.21.0'
+    compile 'com.google.api-client:google-api-client-appengine:1.21.0'
+    compile 'com.google.api-client:google-api-client-servlet:1.21.0'
+    // compile 'com.google.api.services.clouddevices:google-api-services-clouddevices:1.19.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+    compile files('libs/google-api-services-clouddevices-1.19.0.jar')
 }
 
 appengine {

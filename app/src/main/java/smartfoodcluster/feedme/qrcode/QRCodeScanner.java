@@ -21,12 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appspot.g3smartfoodcluster.orderEndpoint.model.Order;
+import com.appspot.g3smartfoodcluster.restaurantEndpoint.model.Restaurant;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import appcloud.controller.AddOrderAsyncTask;
 import appcloud.controller.ListOrdersTask;
+import appcloud.controller.WeaveTalker;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.user.BaseActivity;
 import smartfoodcluster.feedme.util.Constants;
@@ -65,6 +68,11 @@ public class QRCodeScanner extends BaseActivity {
 
     //product qr code mode
     public void scanQR(View v) {
+
+
+        blinkLED();
+        if (true) return;
+
         try {
             //start the scanning activity from the com.google.zxing.client.android.SCAN intent
             Intent intent = new Intent(ACTION_SCAN);
@@ -143,20 +151,27 @@ public class QRCodeScanner extends BaseActivity {
         return false;
     }
 
+    private void blinkLED() {
+        WeaveTalker task = new WeaveTalker();
+        Toast.makeText(QRCodeScanner.this, "Sending Request", Toast.LENGTH_SHORT).show();
+        task.execute(true);
+    }
+
+
     private void displayOrder(Order o) {
 
         findViewById(R.id.scannedDetails).setVisibility(View.VISIBLE);
 
         if (o.getOrderUUID() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("OrderId : " + o.getOrderUUID().split("-")[0].replace("\"", ""));
+            ((TextView) findViewById(R.id.orderIdText)).setText("OrderId : " + o.getOrderUUID().split("-")[0].replace("\"", ""));
         }
 
         if (o.getOrderDate() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("Date : " + o.getOrderDate());
+            ((TextView) findViewById(R.id.orderDate)).setText("Date : " + o.getOrderDate());
         }
 
         if (o.getTotalAmount() != null) {
-            ((TextView) findViewById(R.id.orderId)).setText("Amount : " + o.getTotalAmount());
+            ((TextView) findViewById(R.id.orderAmount)).setText("Amount : " + o.getTotalAmount());
         }
 
         if (o.getOrderDetails() != null) {
@@ -173,7 +188,7 @@ public class QRCodeScanner extends BaseActivity {
                 Log.e(TAG, "Item " + item + " \tsize" + sp.length);
                 sb.append("\n" + sp[0] + " \t\t\t -  " + sp[1]);
             }
-            ((TextView) findViewById(R.id.orderId)).setText(sb.toString());
+            ((TextView) findViewById(R.id.orderDetails)).setText(sb.toString());
         }
 
     }
