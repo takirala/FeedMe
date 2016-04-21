@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,11 +92,15 @@ public class RestaurantHome extends AppCompatActivity {
         ListView orderListView = (ListView) findViewById(R.id.neworderlist);
         orderListView.setAdapter(orderAdapter);
 
+        Log.e("After Adapter", "After adapter");
+
         orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OrderView selectedOrderView = orders.get(position);
                 Long selectedOrder = selectedOrderView.getOrderId();
+                Log.e("Order Id", selectedOrder.toString());
+                Log.e("Order Time", selectedOrderView.getOrderTime().toString());
                 Toast.makeText(RestaurantHome.this, selectedOrder.toString(), Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(getApplicationContext(), OrderView.class);
