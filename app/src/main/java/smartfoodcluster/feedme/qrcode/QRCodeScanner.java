@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,7 +28,6 @@ import appcloud.controller.ListOrdersTask;
 import appcloud.controller.WeavePingerTask;
 import smartfoodcluster.feedme.R;
 import smartfoodcluster.feedme.user.BaseActivity;
-import smartfoodcluster.feedme.util.Constants;
 
 public class QRCodeScanner extends BaseActivity {
 
@@ -165,7 +162,7 @@ public class QRCodeScanner extends BaseActivity {
 
             String[] items = new String[1];
             if (o.getOrderDetails().contains("|")) {
-                items = o.getOrderDetails().split("|");
+                items = o.getOrderDetails().split("\\|");
             } else {
                 items[0] = o.getOrderDetails();
             }
